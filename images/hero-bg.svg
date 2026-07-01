@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<svg class="canyon-bg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+        <line x1="0" y1="0" x2="0" y2="6" stroke="#F0660A" stroke-width="1" opacity="0.3"></line>
+      </pattern>
+    </defs>
+    <path d="M0 700 L200 500 L320 560 L440 380 L560 420 L700 240 L840 320 L980 180 L1120 280 L1280 200 L1440 340 L1600 280 L1600 900 L0 900 Z" fill="url(#hatch)"></path>
+    <path d="M0 800 L180 680 L340 740 L500 600 L640 660 L800 500 L960 580 L1120 480 L1280 560 L1440 500 L1600 600 L1600 900 L0 900 Z" fill="#F0660A" opacity="0.15"></path>
+  </svg>
