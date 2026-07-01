@@ -116,6 +116,7 @@ body::after{
   max-width:520px; justify-self:end;
 }
 .hero-mark .stamp{ position:absolute; inset:0; width:100%; height:100%; display:block; }
+.hero-mark .stamp text{ font-family:'Archivo Black', sans-serif; }
 
 /* ============ ABOUT ============ */
 .about{ background: var(--bone); padding: 90px 40px; position:relative; z-index:2; }

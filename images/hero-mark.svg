@@ -1,5 +1,9 @@
 <svg class="stamp" viewBox="0 0 500 500" aria-label="Canyon mark" xmlns="http://www.w3.org/2000/svg">
   <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&amp;display=swap');
+      text { font-family: 'Archivo Black', sans-serif; }
+    </style>
     <filter id="rough">
       <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="3"/>
       <feDisplacementMap in="SourceGraphic" scale="6"/>
@@ -22,5 +26,7 @@
       <line x1="80" y1="420" x2="420" y2="420" stroke="#F0660A" stroke-width="1"/>
     </g>
   </g>
-  <text x="250" y="485" text-anchor="middle" font-family="'Archivo Black', sans-serif" font-size="56" fill="#F2ECE3" letter-spacing="2">CANYON</text>
+  <g>
+    <text x="250" y="485" text-anchor="middle" font-family="Archivo Black" font-size="56" fill="#F2ECE3" letter-spacing="2">CANYON</text>
+  </g>
 </svg>
