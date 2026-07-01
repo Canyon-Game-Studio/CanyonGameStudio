@@ -90,3 +90,48 @@ function initRevealTitles(){
 }
 
 window.initRevealTitles = initRevealTitles;
+
+
+// ============ scale-in on scroll ============
+// Elements with .scale-in start small + hidden and grow to full size from their
+// centre the first time they scroll into view (used by the contact button).
+function initScaleIns(){
+  const els = document.querySelectorAll(".scale-in");
+  if (!els.length) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.35 });
+
+  els.forEach(el => observer.observe(el));
+}
+
+// ============ marquee ============
+// Duplicate the marquee content once so the -50% keyframe loops seamlessly,
+// then start it. Without JS the single group just shows statically.
+function initMarquees(){
+  document.querySelectorAll(".marquee-track").forEach(track => {
+    const group = track.querySelector(".marquee-group");
+    if (!group) return;
+    const clone = group.cloneNode(true);
+    clone.setAttribute("aria-hidden", "true");
+    track.appendChild(clone);
+    track.classList.add("is-ready");
+  });
+}
+
+function bootAnimations(){
+  initScaleIns();
+  initMarquees();
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", bootAnimations);
+} else {
+  bootAnimations();
+}

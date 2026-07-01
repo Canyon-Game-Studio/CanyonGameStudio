@@ -154,10 +154,10 @@ body::after{
 /* ============ MANIFESTO ============ */
 .manifesto{
   background: var(--orange); color: var(--ink);
-  padding: 90px 40px; position:relative; z-index:2;
+  padding: 100px 0 0; position:relative; z-index:2;
 }
 .manifesto-wrap{
-  max-width:900px; margin:0 auto; text-align:center;
+  max-width:900px; margin:0 auto; padding:0 20px; text-align:center;
 }
 .manifesto .kicker{
   font-family:'JetBrains Mono'; font-size:12px; letter-spacing:.3em;
@@ -165,7 +165,7 @@ body::after{
 }
 .manifesto h2{
   font-family:'Archivo Black'; font-size: clamp(40px, 5.5vw, 72px);
-  line-height:1; text-transform:uppercase; letter-spacing:-.02em; margin-bottom:32px;
+  line-height:1; text-transform:uppercase; letter-spacing:-.02em; margin-bottom:37px;
 }
 .manifesto p{
   font-size:22px; line-height:1.5; opacity:.85; max-width:720px; margin:0 auto;
@@ -299,7 +299,8 @@ footer{
   .hero{ padding:56px 20px; min-height:auto; }
   .hero-wrap{ grid-template-columns:1fr; gap:48px; }
   .hero-mark{ order:-1; max-width:300px; margin:0 auto; justify-self:center; }
-  .about, .manifesto, .games, .contact{ padding:64px 20px; }
+  .about, .games, .contact{ padding:64px 20px; }
+  .manifesto{ padding:64px 0 0; }
   .section-head{ flex-direction:column; align-items:flex-start; }
   .section-head .side{ text-align:left; }
   .about-cols{ grid-template-columns:1fr; }
@@ -327,4 +328,37 @@ footer{
 .reveal-title .char.is-visible{
   transform:translateY(0); opacity:1;
   transition: transform .75s cubic-bezier(.22,1,.36,1), opacity .35s ease;
+}
+
+/* ============ SCALE-IN ON SCROLL ============ */
+/* grows from its centre when it scrolls into view */
+.js .scale-in{ opacity:0; }
+.scale-in.is-visible{ opacity:1; animation: scaleIn 2.4s cubic-bezier(.22,1,.36,1); }
+@keyframes scaleIn{
+  from{ transform: scale(.4); opacity:0; }
+  to{   transform: scale(1);  opacity:1; }
+}
+
+/* ============ SIGN MARQUEE ============ */
+.sign-marquee{
+  margin: 98px 0 0; overflow: hidden;
+  background: var(--espresso);
+  padding: 16px 0;
+}
+.marquee-track{ display: flex; width: max-content; }
+.marquee-track.is-ready{ animation: marquee 20s linear infinite; }
+.marquee-group{ display: flex; align-items: center; flex: 0 0 auto; }
+.mq-text{
+  font-family: 'Archivo Black', sans-serif; font-size: 20px;
+  letter-spacing: .02em; text-transform: uppercase;
+  color: var(--bone); white-space: nowrap; padding-right: 2.4rem;
+}
+.mq-icon{ display: inline-flex; color: var(--bone); padding-right: 2.4rem; }
+.mq-icon svg{ width: 22px; height: 22px; display: block; }
+@keyframes marquee{
+  from{ transform: translateX(0); }
+  to{   transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce){
+  .marquee-track.is-ready{ animation: none; }
 }
