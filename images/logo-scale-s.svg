@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<svg class="logo-sm" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+          <rect x="30" y="30" width="440" height="440" fill="#1A0F0C"></rect>
+          <circle cx="370" cy="150" r="28" fill="#F0660A"></circle>
+          <path d="M30 420 L30 280 L90 240 L140 270 L180 220 L230 260 L280 210 L330 250 L380 230 L430 270 L470 260 L470 420 Z" fill="#F0660A"></path>
+        </svg>

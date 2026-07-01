@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<svg class="logo-sm" style="max-width:64px" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+          <rect x="60" y="60" width="380" height="380" fill="#1A0F0C"></rect>
+          <path d="M60 440 L60 280 L140 220 L200 270 L270 200 L340 250 L400 210 L440 250 L440 440 Z" fill="#F0660A"></path>
+        </svg>

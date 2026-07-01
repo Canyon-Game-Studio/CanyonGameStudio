@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<svg class="logo-lg" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <filter id="rough3"><feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="7"></feTurbulence><feDisplacementMap in="SourceGraphic" scale="5"></feDisplacementMap></filter>
+          </defs>
+          <g filter="url(#rough3)">
+            <rect x="30" y="30" width="260" height="260" rx="12" fill="#1A0F0C"></rect>
+          </g>
+          
+          <g transform="translate(55,70)">
+            
+            <path d="M0 180 L0 80 Q0 20 60 20 L100 20 L100 60 L65 60 Q45 60 45 95 L45 165 Q45 195 65 195 L100 195 L100 235 L60 235 Q0 235 0 180 Z" fill="#F0660A" filter="url(#rough3)"></path>
+            
+            <path d="M120 20 L180 20 Q210 20 210 60 L210 80 L170 80 L170 60 L140 60 Q130 60 130 80 L130 175 Q130 195 150 195 L170 195 L170 150 L150 150 L150 115 L210 115 L210 235 L145 235 Q90 235 90 175 L90 80 Q90 20 120 20 Z" fill="#F0660A" filter="url(#rough3)"></path>
+            
+            <path d="M0 140 L40 110 L70 130 L110 90 L150 120 L190 100 L210 130" stroke="#1A0F0C" stroke-width="3" fill="none" opacity="0.6" filter="url(#rough3)"></path>
+          </g>
+        </svg>

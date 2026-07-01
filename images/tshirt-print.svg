@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<svg style="width:70%;" viewBox="0 0 600 220" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 30 L580 30 Q595 30 595 45 L595 175 Q595 190 580 190 L20 190 Q5 190 5 175 L5 45 Q5 30 20 30 Z" fill="none" stroke="#F0660A" stroke-width="3"></path>
+                <text x="300" y="100" text-anchor="middle" font-family="Archivo Black" font-size="50" fill="#F2ECE3">CANYON</text>
+                <text x="300" y="140" text-anchor="middle" font-family="JetBrains Mono" font-weight="700" font-size="12" fill="#F0660A" letter-spacing="8">GAME·STUDIO</text>
+                <line x1="60" y1="155" x2="540" y2="155" stroke="#F0660A" stroke-width="1"></line>
+                <text x="300" y="175" text-anchor="middle" font-family="JetBrains Mono" font-weight="700" font-size="10" fill="#F2ECE3" letter-spacing="6">PRAIA GRANDE · SC · BR · EST 2026</text>
+              </svg>

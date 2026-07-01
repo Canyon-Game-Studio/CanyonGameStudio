@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<svg class="logo-xl" viewBox="0 0 500 260" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <filter id="rough2"><feTurbulence type="fractalNoise" baseFrequency="0.06" numOctaves="1" seed="2"></feTurbulence><feDisplacementMap in="SourceGraphic" scale="3"></feDisplacementMap></filter>
+          </defs>
+          
+          <g filter="url(#rough2)">
+            <text x="250" y="140" text-anchor="middle" font-family="Archivo Black" font-size="120" fill="#F2ECE3" letter-spacing="-2">CAN</text>
+            <text x="250" y="140" text-anchor="middle" font-family="Archivo Black" font-size="120" fill="#F2ECE3" letter-spacing="-2" dx="100">ON</text>
+          </g>
+          
+          <g transform="translate(228,55)" filter="url(#rough2)">
+            <path d="M0 85 L20 0 L36 40 L50 10 L70 85 L55 85 L46 55 L42 60 L36 45 L28 75 L20 50 L14 85 Z" fill="#F0660A"></path>
+          </g>
+          <line x1="80" y1="170" x2="420" y2="170" stroke="#F0660A" stroke-width="2" filter="url(#rough2)"></line>
+          <text x="250" y="210" text-anchor="middle" font-family="JetBrains Mono" font-weight="700" font-size="18" fill="#F0660A" letter-spacing="10">GAME · STUDIO</text>
+        </svg>

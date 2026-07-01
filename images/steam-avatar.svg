@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<svg style="width:70%" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+            <rect width="500" height="500" fill="#1A0F0C"></rect>
+            <path d="M40 420 L40 280 L100 240 L160 270 L220 210 L280 260 L340 220 L400 250 L460 230 L460 420 Z" fill="#F0660A"></path>
+            <text x="250" y="175" text-anchor="middle" font-family="Archivo Black" font-size="90" fill="#F0660A">C.</text>
+          </svg>

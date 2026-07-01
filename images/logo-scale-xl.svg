@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<svg class="logo-lg" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+          
+          <defs>
+            <g id="reusable-stamp">
+              <filter id="rr1"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="5"></feTurbulence><feDisplacementMap in="SourceGraphic" scale="6"></feDisplacementMap></filter>
+              <clipPath id="cc1"><rect x="60" y="50" width="380" height="360" rx="10"></rect></clipPath>
+            </g>
+          </defs>
+          <g filter="url(#rr1)"><rect x="60" y="50" width="380" height="360" fill="#1A0F0C"></rect></g>
+          <g clip-path="url(#cc1)">
+            <rect x="60" y="50" width="380" height="240" fill="#1A0F0C"></rect>
+            <circle cx="350" cy="150" r="26" fill="#F0660A"></circle>
+            <path d="M60 280 L130 200 L180 230 L230 150 L280 220 L340 170 L390 220 L440 180 L440 280 Z" fill="#2E5C8A" opacity="0.9"></path>
+            <path d="M60 410 L60 300 L100 280 L130 295 L150 270 L180 285 L195 255 L230 250 L245 280 L280 275 L300 250 L330 260 L350 240 L380 248 L400 275 L425 265 L440 290 L440 410 Z" fill="#F0660A"></path>
+          </g>
+          <text x="250" y="455" text-anchor="middle" font-family="Archivo Black" font-size="54" fill="#1A0F0C">CANYON</text>
+          <text x="250" y="480" text-anchor="middle" font-family="JetBrains Mono" font-weight="700" font-size="13" fill="#1A0F0C" letter-spacing="6">GAME STUDIO</text>
+        </svg>

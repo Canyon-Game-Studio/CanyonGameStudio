@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<svg style="width:80%;" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <filter id="stickerRough"><feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="9"></feTurbulence><feDisplacementMap in="SourceGraphic" scale="4"></feDisplacementMap></filter>
+              </defs>
+              <g filter="url(#stickerRough)">
+                
+                <path d="M60 120 L380 90 L440 180 L430 340 L370 420 L180 430 L80 370 L50 250 Z" fill="#F2ECE3"></path>
+                
+                <path d="M80 140 L370 115 L420 190 L410 330 L355 400 L190 410 L100 355 L75 250 Z" fill="#1A0F0C"></path>
+              </g>
+              <text x="100" y="210" font-family="Archivo Black" font-size="62" fill="#F2ECE3" transform="rotate(-4 100 210)">CO-OP</text>
+              <text x="100" y="270" font-family="Archivo Black" font-size="62" fill="#F0660A" transform="rotate(-4 100 270)">OR</text>
+              <text x="100" y="330" font-family="Archivo Black" font-size="62" fill="#F2ECE3" transform="rotate(-4 100 330)">DIE.</text>
+              <path d="M310 300 L340 270 L355 310 L380 280 L395 320" stroke="#F0660A" stroke-width="4" fill="none"></path>
+            </svg>

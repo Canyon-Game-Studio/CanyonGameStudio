@@ -5,7 +5,9 @@
 <title>Canyon Game Studio</title>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <meta name="description" content="Canyon Game Studio — an indie co-op game studio from Praia Grande, Brazil."/>
-<link rel="icon" type="image/svg+xml" href="images/favicon.svg"/>
+<meta name="theme-color" content="#1A0F0C"/>
+<link rel="icon" type="image/svg+xml" href="images/favicon-48.svg"/>
+<link rel="apple-touch-icon" href="images/app-icon.svg"/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Archivo+Black&display=swap" rel="stylesheet">
@@ -46,8 +48,33 @@
         <span class="chip" data-i18n="chip_adventure">ADVENTURE</span>
       </div>
     </div>
-    <div class="hero-badge">
-      <img src="images/logo-01-emblem-stamp.svg" alt="Canyon Game Studio emblem">
+    <div class="hero-mark">
+      <svg class="stamp" viewBox="0 0 500 500" aria-label="Canyon Game Studio">
+        <defs>
+          <filter id="heroRough">
+            <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="3"/>
+            <feDisplacementMap in="SourceGraphic" scale="6"/>
+          </filter>
+          <clipPath id="heroStampClip">
+            <rect x="50" y="50" width="400" height="400" rx="12"/>
+          </clipPath>
+        </defs>
+        <g filter="url(#heroRough)">
+          <rect x="50" y="50" width="400" height="400" fill="#F0660A"/>
+        </g>
+        <g clip-path="url(#heroStampClip)">
+          <rect x="50" y="50" width="400" height="260" fill="#F0660A"/>
+          <circle cx="360" cy="170" r="32" fill="#1A0F0C"/>
+          <path d="M50 310 L130 210 L200 260 L260 160 L320 220 L400 140 L450 230 L450 310 Z" fill="#2A1A16" opacity="0.9"/>
+          <path d="M50 450 L50 330 L100 300 L140 320 L160 290 L200 310 L210 270 L250 260 L260 300 L300 290 L320 270 L350 280 L370 250 L400 260 L420 290 L440 280 L450 310 L450 450 Z" fill="#1A0F0C"/>
+          <g opacity="0.3">
+            <line x1="80" y1="360" x2="420" y2="360" stroke="#F0660A" stroke-width="2"/>
+            <line x1="80" y1="390" x2="420" y2="390" stroke="#F0660A" stroke-width="1.5"/>
+            <line x1="80" y1="420" x2="420" y2="420" stroke="#F0660A" stroke-width="1"/>
+          </g>
+        </g>
+        <text x="250" y="485" text-anchor="middle" font-family="'Archivo Black', sans-serif" font-size="56" fill="#F2ECE3" letter-spacing="2">CANYON</text>
+      </svg>
     </div>
   </div>
 </header>
@@ -67,21 +94,31 @@
 
     <div class="about-cols">
       <div class="value-card">
-        <div class="vc-num">/ 01</div>
+        <div class="vc-num" data-i18n="val1_num">01 · Values</div>
         <h3 data-i18n="val1_title">Built for Friends</h3>
         <p data-i18n="val1_body">Every game we make is cooperative at its heart. We design for shared moments — the laughter, the panic, the teamwork that only happens when you're playing side by side.</p>
       </div>
       <div class="value-card">
-        <div class="vc-num">/ 02</div>
+        <div class="vc-num" data-i18n="val2_num">02 · Values</div>
         <h3 data-i18n="val2_title">Rooted in Nature</h3>
         <p data-i18n="val2_body">Our name comes from the canyons of our hometown. That love for wild, vast landscapes runs through everything — a sense of adventure and exploration in every world we build.</p>
       </div>
       <div class="value-card">
-        <div class="vc-num">/ 03</div>
+        <div class="vc-num" data-i18n="val3_num">03 · Values</div>
         <h3 data-i18n="val3_title">Our Mission</h3>
         <p data-i18n="val3_body">To create games that let more people have fun with their friends — the same way we always have. Bringing people together, one match at a time.</p>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ============ MANIFESTO ============ -->
+<section class="manifesto" aria-label="Manifesto">
+  <div class="manifesto-wrap">
+    <div class="kicker" data-i18n="manifesto_kicker">Manifesto</div>
+    <h2 data-i18n="manifesto_title" data-i18n-html>GAMES ARE<br/>BETTER<br/>WITH FRIENDS.</h2>
+    <p data-i18n="manifesto_body">Born in the canyons of southern Brazil, where two friends turned game nights into a career. We believe in cooperative games — the ones you finish screaming on Discord at 3 AM, with someone saying "one more round."</p>
+    <div class="sign" data-i18n="manifesto_sign">— Canyon Game Studio</div>
   </div>
 </section>
 
@@ -90,7 +127,7 @@
   <div class="about-wrap">
     <div class="section-head">
       <div>
-        <div class="kicker" data-i18n="games_kicker">02 — Our Games</div>
+        <div class="kicker" data-i18n="games_kicker">03 — Our Games</div>
         <h2 data-i18n="games_title">GAMES</h2>
       </div>
       <div class="side" data-i18n="games_side">Our first title is in the works — with more worlds on the horizon.</div>
@@ -103,11 +140,13 @@
           <span class="tape tape-bottom" data-i18n="tag_players">1–4 Players</span>
           <img class="game-art" src="images/TrashCorp.png" alt="Trash Corp. key art">
         </div>
-        <div class="game-info">
-          <h3 data-i18n="game1_name">Trash Corp.</h3>
-          <span class="genre" data-i18n="game1_genre">Co-op · Horror · Extraction</span>
+        <div class="game-body">
+          <div class="game-info">
+            <h3 data-i18n="game1_name">Trash Corp.</h3>
+            <span class="genre" data-i18n="game1_genre">Co-op · Horror · Extraction</span>
+          </div>
+          <p class="game-desc" data-i18n="game1_desc">Trash Corp. is a cooperative horror extraction game for 1 to 4 players. Drive a space garbage truck and travel between planets. Fight radioactive monsters. Do whatever it takes to survive and hit the quota!</p>
         </div>
-        <p class="game-desc" data-i18n="game1_desc">Trash Corp. is a cooperative horror extraction game for 1 to 4 players. Drive a space garbage truck and travel between planets. Fight radioactive monsters. Do whatever it takes to survive and hit the quota!</p>
       </div>
 
       <!-- GAME 2 -->
@@ -116,11 +155,13 @@
           <span class="tape" data-i18n="tag_dev">In Development</span>
           <image-slot id="game-cover-2" shape="rect" fit="cover" placeholder="Drop cover art — Game 02"></image-slot>
         </div>
-        <div class="game-info">
-          <h3 data-i18n="game2_name">Untitled Project II</h3>
-          <span class="genre" data-i18n="game2_genre">Co-op · Casual</span>
+        <div class="game-body">
+          <div class="game-info">
+            <h3 data-i18n="game2_name">Untitled Project II</h3>
+            <span class="genre" data-i18n="game2_genre">Co-op · Casual</span>
+          </div>
+          <p class="game-desc" data-i18n="game2_desc">A lighter, mobile-friendly co-op adventure — easy to pick up, hard to put down.</p>
         </div>
-        <p class="game-desc" data-i18n="game2_desc">A lighter, mobile-friendly co-op adventure — easy to pick up, hard to put down.</p>
       </div>
 
       <!-- COMING SOON -->
@@ -131,11 +172,13 @@
             <div class="st" data-i18n="soon">Coming Soon</div>
           </div>
         </div>
-        <div class="game-info">
-          <h3 data-i18n="game3_name">More to Come</h3>
-          <span class="genre" data-i18n="game3_genre">TBA</span>
+        <div class="game-body">
+          <div class="game-info">
+            <h3 data-i18n="game3_name">More to Come</h3>
+            <span class="genre" data-i18n="game3_genre">TBA</span>
+          </div>
+          <p class="game-desc" data-i18n="game3_desc">We're just getting started. New worlds and new ways to play together are on the way.</p>
         </div>
-        <p class="game-desc" data-i18n="game3_desc">We're just getting started. New worlds and new ways to play together are on the way.</p>
       </div>
     </div>
   </div>
@@ -143,9 +186,9 @@
 
 <!-- ============ CONTACT ============ -->
 <section class="contact" id="contact">
-  <img class="contact-bg" style="opacity:.12" src="images/hero-bg.svg" alt="" aria-hidden="true">
+  <img class="contact-bg" src="images/banner-bg.svg" alt="" aria-hidden="true">
   <div class="contact-wrap">
-    <div class="kicker" data-i18n="contact_kicker">03 — Get in Touch</div>
+    <div class="kicker" data-i18n="contact_kicker">04 — Get in Touch</div>
     <h2 data-i18n="contact_title" data-i18n-html>LET'S BUILD<br/>SOMETHING.</h2>
     <p data-i18n="contact_body">Want to collaborate, publish with us, or just talk games? We'd love to hear from you.</p>
     <a class="contact-mail" href="mailto:contact@canyongamestudio">

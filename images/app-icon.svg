@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<svg style="width:70%" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <clipPath id="iconRad"><rect x="0" y="0" width="500" height="500" rx="110"></rect></clipPath>
+            </defs>
+            <g clip-path="url(#iconRad)">
+              <rect width="500" height="500" fill="#F0660A"></rect>
+              <circle cx="380" cy="160" r="40" fill="#1A0F0C"></circle>
+              <path d="M0 340 L80 230 L140 270 L210 170 L270 240 L340 180 L410 240 L470 200 L500 220 L500 340 Z" fill="#2A1A16"></path>
+              <path d="M0 500 L0 320 L60 290 L110 310 L150 280 L200 300 L230 270 L280 285 L310 260 L360 275 L390 250 L430 265 L470 255 L500 280 L500 500 Z" fill="#1A0F0C"></path>
+            </g>
+          </svg>
