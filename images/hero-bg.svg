@@ -1,4 +1,4 @@
-<svg class="canyon-bg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-  <path d="M0 700 L200 500 L320 560 L440 380 L560 420 L700 240 L840 320 L980 180 L1120 280 L1280 200 L1440 340 L1600 280 L1600 900 L0 900 Z" fill="#F0660A" opacity="0.2"/>
-  <path d="M0 800 L180 680 L340 740 L500 600 L640 660 L800 500 L960 580 L1120 480 L1280 560 L1440 500 L1600 600 L1600 900 L0 900 Z" fill="#F0660A" opacity="0.15"/>
+<svg class="canyon-bg" viewBox="0 0 1600 500" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <path d="M0 400 L150 280 L280 320 L400 200 L540 260 L680 160 L820 220 L960 140 L1100 200 L1240 130 L1400 210 L1600 170 L1600 500 L0 500 Z" fill="#F0660A"/>
+  <path d="M0 450 L180 380 L340 410 L500 320 L640 360 L800 260 L960 320 L1120 250 L1280 300 L1440 260 L1600 330 L1600 500 L0 500 Z" fill="#1A3D63" opacity="0.7"/>
 </svg>
