@@ -145,11 +145,6 @@ body::after{
   background: var(--paper); padding:32px 28px; min-height:220px;
   position:relative;
 }
-.value-card .vc-num{
-  font-family:'JetBrains Mono'; font-size:10px; color:var(--orange);
-  letter-spacing:.2em; text-transform:uppercase; opacity:.7;
-  position:absolute; top:16px; left:16px;
-}
 .value-card h3{
   font-family:'Archivo Black'; font-size:22px; text-transform:uppercase;
   margin:0 0 12px; letter-spacing:-.01em;
