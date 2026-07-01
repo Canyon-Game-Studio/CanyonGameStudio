@@ -308,4 +308,9 @@ footer{
 }
 @media (max-width: 560px){
   .nav-links{ width:100%; justify-content:space-between; }
+  .contact-mail{
+    font-size:14px; padding:14px 18px; gap:10px;
+    max-width:100%; text-align:center; overflow-wrap:anywhere;
+  }
+  .contact-mail img{ width:18px; height:18px; flex:none; }
 }
