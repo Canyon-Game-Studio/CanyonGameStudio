@@ -314,3 +314,17 @@ footer{
   }
   .contact-mail img{ width:18px; height:18px; flex:none; }
 }
+
+/* ============ REVEAL TITLE ANIMATION ============ */
+.reveal-title{ overflow:hidden; }
+.js .reveal-title{ visibility:hidden; }   /* hidden until split, to avoid a flash on load */
+.reveal-title .line-wrap{ display:block; overflow:hidden; }
+.reveal-title .word{ display:inline-block; white-space:nowrap; }
+.reveal-title .char{
+  display:inline-block; transform:translateY(115%); opacity:0;
+  will-change: transform, opacity;
+}
+.reveal-title .char.is-visible{
+  transform:translateY(0); opacity:1;
+  transition: transform .75s cubic-bezier(.22,1,.36,1), opacity .35s ease;
+}

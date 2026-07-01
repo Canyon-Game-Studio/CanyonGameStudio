@@ -15,7 +15,7 @@ const I18N = {
     manifesto_title:"GAMES ARE<br/>BETTER<br/>WITH FRIENDS.",
     manifesto_body:"Born in the canyons of southern Brazil, where two friends turned game nights into a career. We believe in cooperative games, the ones you finish screaming on Discord at 3 AM, with someone saying \"one more round.\"",
     manifesto_sign:"Canyon Game Studio",
-    games_title:"GAMES",
+    games_title:"OUR GAMES",
     games_side:"Our first title is in the works, with more worlds on the horizon.",
     tag_players:"1–4 Players", soon:"Coming Soon",
     game1_name:"Trash Corp.", game1_genre:"Co-op · Horror · Extraction",
@@ -41,7 +41,7 @@ const I18N = {
     manifesto_title:"JOGOS SÃO<br/>MELHORES<br/>COM AMIGOS.",
     manifesto_body:"Nascemos nos canyons do sul do Brasil, onde dois amigos transformaram noites de jogos em carreira. Acreditamos em games cooperativos, os que você termina gritando no Discord às 3 da manhã, com alguém dizendo \"só mais uma partida\".",
     manifesto_sign:"Canyon Game Studio",
-    games_title:"JOGOS",
+    games_title:"NOSSOS JOGOS",
     games_side:"Nosso primeiro título está a caminho, com mais mundos no horizonte.",
     tag_players:"1–4 Jogadores", soon:"Em Breve",
     game1_name:"Trash Corp.", game1_genre:"Co-op · Terror · Extração",
@@ -66,6 +66,7 @@ function applyLang(lang){
   document.querySelectorAll('.lang-toggle button').forEach(b =>
     b.classList.toggle('active', b.dataset.lang === lang));
   try{ localStorage.setItem('canyon_lang', lang); }catch(e){}
+  if (window.initRevealTitles) window.initRevealTitles();
 }
 
 document.querySelectorAll('.lang-toggle button').forEach(btn => {
