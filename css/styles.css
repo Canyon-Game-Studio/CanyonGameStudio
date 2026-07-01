@@ -184,7 +184,7 @@ body::after{
 .games{ background: var(--ink); color: var(--bone); padding: 90px 40px; position:relative; z-index:2; }
 .games .section-head{ border-bottom-color: rgba(242,236,227,.18); }
 .games .section-head .side{ color: var(--bone-2); opacity:.8; }
-.games-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap:2px; background: var(--orange); border:2px solid var(--orange); }
+.games-grid{ display:grid; grid-template-columns: repeat(2, 1fr); gap:2px; background: var(--orange); border:2px solid var(--orange); }
 .game-card{
   background: var(--espresso-2); padding:0;
   display:flex; flex-direction:column;
@@ -194,7 +194,6 @@ body::after{
   overflow:hidden; background: var(--espresso);
 }
 .game-art{ width:100%; height:100%; object-fit:cover; display:block; }
-image-slot{ width:100%; height:100%; display:block; }
 .game-cover .tape{
   position:absolute; top:14px; left:14px; z-index:3;
   font-family:'JetBrains Mono'; font-size:10px; font-weight:700; letter-spacing:.16em;
