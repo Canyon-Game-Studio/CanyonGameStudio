@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Canyon Game Studio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="description" content="Canyon Game Studio — an indie co-op game studio from Praia Grande, Brazil."/>
+<link rel="icon" type="image/svg+xml" href="images/favicon.svg"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Archivo+Black&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+<script src="js/image-slot.js"></script>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav class="nav">
+  <a class="nav-brand" href="#top">
+    <img class="nb-horizontal" src="images/canyon-badge-horizontal.svg" alt="Canyon Game Studio">
+  </a>
+  <div class="nav-links">
+    <a href="#about"   data-i18n="nav_about">Who We Are</a>
+    <a href="#games"   data-i18n="nav_games">Games</a>
+    <a href="#contact" data-i18n="nav_contact">Contact</a>
+    <div class="lang-toggle">
+      <button data-lang="en" class="active">EN</button>
+      <button data-lang="pt">PT</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO / WHO WE ARE ============ -->
+<header class="hero" id="top">
+  <img class="hero-bg" src="images/canyon-horizon.svg" alt="" aria-hidden="true">
+  <div class="hero-wrap">
+    <div>
+      <div class="eyebrow" data-i18n="hero_eyebrow">Indie Co-op Studio · Praia Grande, Brazil</div>
+      <h1 data-i18n="hero_title" data-i18n-html>PLAY<br/>TOGET<span class="o">H</span>ER.</h1>
+      <p class="tag" data-i18n="hero_tag">We build cooperative games made for the nights you spend with friends — the ones that end with "just one more round."</p>
+      <div class="chips">
+        <span class="chip filled" data-i18n="chip_coop">CO-OP</span>
+        <span class="chip" data-i18n="chip_indie">INDIE</span>
+        <span class="chip" data-i18n="chip_horror">HORROR</span>
+        <span class="chip" data-i18n="chip_adventure">ADVENTURE</span>
+      </div>
+    </div>
+    <div class="hero-badge">
+      <img src="images/canyon-stamp.svg" alt="Canyon Game Studio emblem">
+    </div>
+  </div>
+</header>
+
+<!-- ============ ABOUT ============ -->
+<section class="about" id="about">
+  <div class="about-wrap">
+    <div class="section-head">
+      <div>
+        <div class="kicker" data-i18n="about_kicker">01 — Who We Are</div>
+        <h2 data-i18n="about_title" data-i18n-html>FROM THE<br/>CANYONS.</h2>
+      </div>
+      <div class="side" data-i18n="about_side">Named after the canyons of Praia Grande, Santa Catarina — the wild landscape that raised us.</div>
+    </div>
+
+    <p class="about-lead" data-i18n="about_lead" data-i18n-html>Canyon Game Studio was founded by <b>two friends</b> who have known each other since their school days. What started as a dream — to build games together someday — slowly took shape over the years into the studio it is now.</p>
+
+    <div class="about-cols">
+      <div class="value-card">
+        <div class="vc-num">/ 01</div>
+        <h3 data-i18n="val1_title">Built for Friends</h3>
+        <p data-i18n="val1_body">Every game we make is cooperative at its heart. We design for shared moments — the laughter, the panic, the teamwork that only happens when you're playing side by side.</p>
+      </div>
+      <div class="value-card">
+        <div class="vc-num">/ 02</div>
+        <h3 data-i18n="val2_title">Rooted in Nature</h3>
+        <p data-i18n="val2_body">Our name comes from the canyons of our hometown. That love for wild, vast landscapes runs through everything — a sense of adventure and exploration in every world we build.</p>
+      </div>
+      <div class="value-card">
+        <div class="vc-num">/ 03</div>
+        <h3 data-i18n="val3_title">Our Mission</h3>
+        <p data-i18n="val3_body">To create games that let more people have fun with their friends — the same way we always have. Bringing people together, one match at a time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GAMES ============ -->
+<section class="games" id="games">
+  <div class="about-wrap">
+    <div class="section-head">
+      <div>
+        <div class="kicker" data-i18n="games_kicker">02 — Our Games</div>
+        <h2 data-i18n="games_title">GAMES</h2>
+      </div>
+      <div class="side" data-i18n="games_side">Two titles in the making, with more on the horizon. Drop your cover art onto the slots.</div>
+    </div>
+
+    <div class="games-grid">
+      <!-- GAME 1 -->
+      <div class="game-card">
+        <div class="game-cover">
+          <span class="tape" data-i18n="tag_dev">In Development</span>
+          <image-slot id="game-cover-1" shape="rect" fit="cover" placeholder="Drop cover art — Game 01"></image-slot>
+        </div>
+        <div class="game-info">
+          <h3 data-i18n="game1_name">Untitled Project I</h3>
+          <span class="genre" data-i18n="game1_genre">Co-op · Horror</span>
+        </div>
+        <p class="game-desc" data-i18n="game1_desc">A cooperative survival experience meant to be played with friends — and feared together.</p>
+      </div>
+
+      <!-- GAME 2 -->
+      <div class="game-card">
+        <div class="game-cover">
+          <span class="tape" data-i18n="tag_dev">In Development</span>
+          <image-slot id="game-cover-2" shape="rect" fit="cover" placeholder="Drop cover art — Game 02"></image-slot>
+        </div>
+        <div class="game-info">
+          <h3 data-i18n="game2_name">Untitled Project II</h3>
+          <span class="genre" data-i18n="game2_genre">Co-op · Casual</span>
+        </div>
+        <p class="game-desc" data-i18n="game2_desc">A lighter, mobile-friendly co-op adventure — easy to pick up, hard to put down.</p>
+      </div>
+
+      <!-- COMING SOON -->
+      <div class="game-card">
+        <div class="game-cover soon">
+          <div class="soon-inner">
+            <div class="qmark">?</div>
+            <div class="st" data-i18n="soon">Coming Soon</div>
+          </div>
+        </div>
+        <div class="game-info">
+          <h3 data-i18n="game3_name">More to Come</h3>
+          <span class="genre" data-i18n="game3_genre">TBA</span>
+        </div>
+        <p class="game-desc" data-i18n="game3_desc">We're just getting started. New worlds and new ways to play together are on the way.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="contact" id="contact">
+  <img class="contact-bg" style="opacity:.12" src="images/canyon-horizon.svg" alt="" aria-hidden="true">
+  <div class="contact-wrap">
+    <div class="kicker" data-i18n="contact_kicker">03 — Get in Touch</div>
+    <h2 data-i18n="contact_title" data-i18n-html>LET'S BUILD<br/>SOMETHING.</h2>
+    <p data-i18n="contact_body">Want to collaborate, publish with us, or just talk games? We'd love to hear from you.</p>
+    <a class="contact-mail" href="mailto:contact@canyongamestudio">
+      <img src="images/icon-mail.svg" alt="">
+      contact@canyongamestudio
+    </a>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="footer-wrap">
+    <div>
+      <div class="footer-brand">
+        <img class="fb-stamp" src="images/canyon-stamp.svg" alt="Canyon Game Studio">
+        <div class="fb-loc">Praia Grande · SC · Brazil · Est. 2026</div>
+      </div>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col">
+        <h4 data-i18n="foot_explore">Explore</h4>
+        <a href="#about"   data-i18n="nav_about">Who We Are</a>
+        <a href="#games"   data-i18n="nav_games">Games</a>
+        <a href="#contact" data-i18n="nav_contact">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="foot_connect">Connect</h4>
+        <a href="https://www.linkedin.com/company/canyon-game-studio/" target="_blank" rel="noopener">
+          <img src="images/icon-linkedin.svg" alt="">
+          LinkedIn
+        </a>
+        <a href="mailto:contact@canyongamestudio">
+          <img src="images/icon-mail.svg" alt="">
+          contact@canyongamestudio
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Canyon Game Studio</span>
+    <span data-i18n="foot_tag">Made for co-op nights.</span>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+
+</body>
+</html>

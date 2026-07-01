@@ -1,0 +1,188 @@
+:root{
+  --ink:      #1A0F0C;
+  --espresso: #3E2723;
+  --espresso-2: #2A1A16;
+  --orange:   #F0660A;
+  --orange-bright: #FF7A1F;
+  --bone:     #F2ECE3;
+  --bone-2:   #E6DED1;
+  --paper:    #EFE7DB;
+  --blue:     #2E5C8A;
+  --blue-deep:#1A3D63;
+  --blue-soft:#5A8BB8;
+  /* rock layers for canyon illustration */
+  --r1: #2E1A12; --r2: #6B3820; --r3: #A05530; --r4: #C87848; --r5: #E0A068;
+  --sky1: #8BAEC8; --sky2: #B8D0E0;
+  --riverd: #1A4A7A; --riverl: #3A78AA;
+}
+*{ box-sizing: border-box; margin:0; padding:0; }
+html{ scroll-behavior: smooth; }
+body{
+  background: var(--paper); color: var(--ink);
+  font-family:'Barlow Condensed', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.display{ font-family:'Archivo Black', sans-serif; }
+.mono{ font-family:'JetBrains Mono', monospace; }
+a{ color: inherit; }
+
+/* film grain overlay */
+body::after{
+  content:""; position:fixed; inset:0; z-index:1; pointer-events:none;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.05 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  mix-blend-mode: multiply; opacity:.5;
+}
+
+/* ============ NAV ============ */
+.nav{
+  position: sticky; top:0; z-index:100;
+  background: rgba(26,15,12,.96);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(240,102,10,.4);
+  display:flex; align-items:center; justify-content:space-between;
+  padding: 12px 40px;
+  color: var(--bone);
+}
+.nav-brand{ display:flex; align-items:center; gap:12px; text-decoration:none; }
+.nav-brand img.nb-horizontal{ width: clamp(150px, 18vw, 200px); height:auto; display:block; }
+.nav-links{ display:flex; gap:6px; align-items:center; }
+.nav-links a{
+  text-decoration:none; color: var(--bone-2);
+  font-weight:600; text-transform:uppercase; letter-spacing:.09em; font-size:13px;
+  padding:8px 14px; transition: color .15s, background .15s;
+}
+.nav-links a:hover{ color: var(--orange); }
+.lang-toggle{
+  display:flex; border:1px solid rgba(242,236,227,.3); border-radius:2px; overflow:hidden; margin-left:12px;
+}
+.lang-toggle button{
+  background:none; border:none; cursor:pointer;
+  font-family:'JetBrains Mono'; font-size:11px; font-weight:700; letter-spacing:.08em;
+  color: var(--bone-2); padding:7px 11px; transition: all .15s;
+}
+.lang-toggle button.active{ background: var(--orange); color: var(--ink); }
+
+/* ============ HERO / WHO WE ARE ============ */
+.hero{
+  position:relative; overflow:hidden;
+  background: var(--ink); color: var(--bone);
+  padding: 100px 40px 90px;
+}
+.hero-bg{ position:absolute; inset:0; opacity:.16; pointer-events:none; width:100%; height:100%; object-fit:cover; }
+.hero-wrap{ max-width:1280px; margin:0 auto; position:relative; z-index:2;
+  display:grid; grid-template-columns: 1.15fr .85fr; gap:64px; align-items:center; }
+.hero .eyebrow{ font-family:'JetBrains Mono'; font-size:12px; letter-spacing:.28em;
+  color: var(--orange); text-transform:uppercase; margin-bottom:22px; }
+.hero h1{ font-family:'Archivo Black'; font-size: clamp(52px, 8vw, 118px);
+  line-height:.86; letter-spacing:-.03em; text-transform:uppercase; }
+.hero h1 .o{ color: var(--orange); }
+.hero .tag{ margin-top:28px; font-size:21px; line-height:1.45; color: var(--bone-2); max-width:520px; }
+.hero .chips{ display:flex; gap:10px; margin-top:30px; flex-wrap:wrap; }
+.chip{ padding:6px 14px; border:1px solid rgba(242,236,227,.35);
+  font-family:'JetBrains Mono'; font-size:11px; letter-spacing:.14em; text-transform:uppercase; }
+.chip.filled{ background: var(--orange); color: var(--ink); border-color: var(--orange); }
+.hero-badge{ justify-self:center; width:100%; max-width:380px; }
+.hero-badge img{ width:100%; height:auto; display:block; filter: drop-shadow(0 20px 40px rgba(0,0,0,.4)); }
+
+/* ============ ABOUT DETAIL ============ */
+.about{ background: var(--paper); padding: 90px 40px; position:relative; z-index:2; }
+.about-wrap{ max-width:1280px; margin:0 auto; }
+.section-head{ display:flex; align-items:flex-end; justify-content:space-between; gap:40px;
+  border-bottom:1px solid rgba(26,15,12,.15); padding-bottom:20px; margin-bottom:52px; }
+.section-head .kicker{ font-family:'JetBrains Mono'; font-size:11px; letter-spacing:.24em;
+  text-transform:uppercase; color: var(--orange); margin-bottom:10px; }
+.section-head h2{ font-family:'Archivo Black'; font-size: clamp(38px, 5.5vw, 76px);
+  line-height:.9; letter-spacing:-.02em; text-transform:uppercase; }
+.section-head .side{ max-width:360px; font-size:16px; line-height:1.5; opacity:.7; text-align:right; }
+
+.about-cols{ display:grid; grid-template-columns: repeat(3, 1fr); gap:32px; }
+.about-lead{ grid-column: 1 / -1; font-size: clamp(22px, 2.6vw, 34px); line-height:1.35;
+  font-weight:500; margin-bottom:44px; max-width:1000px; text-wrap: pretty; }
+.about-lead b{ color: var(--orange); font-weight:700; }
+.value-card{ border-top:3px solid var(--orange); padding-top:20px; }
+.value-card .vc-num{ font-family:'JetBrains Mono'; font-size:12px; color:var(--orange); letter-spacing:.15em; }
+.value-card h3{ font-family:'Archivo Black'; font-size:24px; text-transform:uppercase; margin:12px 0 10px; letter-spacing:-.01em; }
+.value-card p{ font-size:16px; line-height:1.55; opacity:.78; }
+
+/* ============ GAMES ============ */
+.games{ background: var(--ink); color: var(--bone); padding: 90px 40px; position:relative; z-index:2; }
+.games .section-head{ border-bottom-color: rgba(242,236,227,.18); }
+.games .section-head .side{ color: var(--bone-2); opacity:.8; }
+.games-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap:28px; }
+.game-card{ position:relative; }
+.game-cover{ position:relative; aspect-ratio: 3/4; border:1px solid rgba(242,236,227,.15);
+  overflow:hidden; background: var(--espresso-2); }
+image-slot{ width:100%; height:100%; display:block; }
+.game-cover .tape{ position:absolute; top:14px; left:14px; z-index:3;
+  font-family:'JetBrains Mono'; font-size:10px; font-weight:700; letter-spacing:.16em;
+  text-transform:uppercase; background: var(--orange); color:var(--ink); padding:5px 10px; }
+.game-info{ display:flex; align-items:baseline; justify-content:space-between; margin-top:16px; gap:12px; }
+.game-info h3{ font-family:'Archivo Black'; font-size:22px; text-transform:uppercase; letter-spacing:-.01em; }
+.game-info .genre{ font-family:'JetBrains Mono'; font-size:11px; letter-spacing:.12em;
+  text-transform:uppercase; color: var(--orange); white-space:nowrap; }
+.game-desc{ font-size:15px; line-height:1.5; color: var(--bone-2); opacity:.8; margin-top:8px; }
+
+/* coming soon card */
+.game-cover.soon{ display:flex; align-items:center; justify-content:center;
+  background:
+    repeating-linear-gradient(-45deg, transparent, transparent 18px, rgba(240,102,10,.06) 18px, rgba(240,102,10,.06) 36px),
+    var(--espresso-2);
+  border:1px dashed rgba(240,102,10,.4); }
+.soon-inner{ text-align:center; padding:24px; }
+.soon-inner .qmark{ font-family:'Archivo Black'; font-size:72px; color: rgba(240,102,10,.55); line-height:1; }
+.soon-inner .st{ font-family:'JetBrains Mono'; font-size:12px; letter-spacing:.22em;
+  text-transform:uppercase; color: var(--orange); margin-top:16px; }
+
+/* ============ CONTACT ============ */
+.contact{ background: var(--orange); color: var(--ink); padding: 100px 40px; position:relative; z-index:2; overflow:hidden; }
+.contact-bg{ position:absolute; inset:0; opacity:.16; pointer-events:none; width:100%; height:100%; object-fit:cover; }
+.contact-wrap{ max-width:1000px; margin:0 auto; position:relative; z-index:2; text-align:center; }
+.contact .kicker{ font-family:'JetBrains Mono'; font-size:12px; letter-spacing:.28em; text-transform:uppercase; margin-bottom:20px; }
+.contact h2{ font-family:'Archivo Black'; font-size: clamp(40px, 6.5vw, 92px);
+  line-height:.9; letter-spacing:-.02em; text-transform:uppercase; }
+.contact p{ font-size:20px; line-height:1.45; margin:26px auto 0; max-width:600px; text-wrap:pretty; }
+.contact-mail{ display:inline-flex; align-items:center; gap:14px; margin-top:40px;
+  background: var(--ink); color: var(--bone); text-decoration:none;
+  font-family:'Archivo Black'; font-size: clamp(20px, 3vw, 32px); letter-spacing:-.01em;
+  padding:18px 34px; transition: transform .15s, background .15s; }
+.contact-mail:hover{ transform: translateY(-3px); background: var(--espresso); }
+.contact-mail img{ width:26px; height:26px; }
+
+/* ============ FOOTER ============ */
+footer{ background: var(--ink); color: var(--bone-2); padding: 56px 40px 40px; position:relative; z-index:2; }
+.footer-wrap{ max-width:1280px; margin:0 auto;
+  display:flex; align-items:flex-start; justify-content:space-between; gap:40px; flex-wrap:wrap; }
+.footer-brand{ display:flex; flex-direction:column; align-items:flex-start; gap:14px; }
+.footer-brand img.fb-stamp{ width:130px; height:auto; }
+.footer-brand .fb-loc{ font-family:'JetBrains Mono'; font-size:11px; letter-spacing:.14em;
+  text-transform:uppercase; opacity:.55; }
+.footer-links{ display:flex; gap:48px; flex-wrap:wrap; }
+.footer-col h4{ font-family:'JetBrains Mono'; font-size:11px; letter-spacing:.2em;
+  text-transform:uppercase; color: var(--orange); margin-bottom:14px; }
+.footer-col a{ display:flex; align-items:center; gap:9px; text-decoration:none; color:var(--bone-2);
+  font-size:15px; padding:5px 0; transition: color .15s; }
+.footer-col a:hover{ color: var(--orange); }
+.footer-col a img{ width:17px; height:17px; flex:none; }
+.footer-bottom{ max-width:1280px; margin:44px auto 0; padding-top:24px;
+  border-top:1px solid rgba(242,236,227,.12);
+  display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;
+  font-family:'JetBrains Mono'; font-size:11px; letter-spacing:.12em; text-transform:uppercase; opacity:.5; }
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 900px){
+  .nav{ padding:12px 20px; flex-wrap:wrap; gap:10px; }
+  .nav-links{ font-size:12px; }
+  .nav-links a{ padding:6px 9px; letter-spacing:.05em; }
+  .hero{ padding:64px 20px; }
+  .hero-wrap{ grid-template-columns:1fr; gap:48px; }
+  .hero-badge{ order:-1; max-width:280px; }
+  .about, .games, .contact{ padding:64px 20px; }
+  .section-head{ flex-direction:column; align-items:flex-start; }
+  .section-head .side{ text-align:left; }
+  .about-cols{ grid-template-columns:1fr; gap:28px; }
+  .games-grid{ grid-template-columns:1fr; }
+  .footer-wrap{ flex-direction:column; }
+}
+@media (max-width: 560px){
+  .nav-links{ width:100%; justify-content:space-between; }
+}
