@@ -112,17 +112,46 @@ function initScaleIns(){
 }
 
 // ============ marquee ============
-// Duplicate the marquee content once so the -50% keyframe loops seamlessly,
-// then start it. Without JS the single group just shows statically.
+// Fill the track with enough repeats to cover the band width, then duplicate it
+// so the -50% keyframe loops seamlessly with no empty gap before it resets.
+// Rebuilds on font load and resize so a wider viewport never exposes a gap.
+function buildMarquee(track){
+  if (!track._unitsHTML){
+    const g = track.querySelector(".marquee-group");
+    if (!g) return;
+    track._unitsHTML = g.innerHTML;          // remember the authored units
+  }
+  const units = track._unitsHTML;
+  const container = track.parentElement;      // .sign-marquee
+
+  const group = document.createElement("div");
+  group.className = "marquee-group";
+  group.innerHTML = units;
+  track.className = "marquee-track";          // reset (drops is-ready)
+  track.innerHTML = "";
+  track.appendChild(group);
+
+  // Repeat the units until one group is at least as wide as the band.
+  let guard = 0;
+  while (group.offsetWidth < container.offsetWidth && guard < 40){
+    group.innerHTML += units;
+    guard++;
+  }
+
+  const clone = group.cloneNode(true);
+  clone.setAttribute("aria-hidden", "true");
+  track.appendChild(clone);
+  requestAnimationFrame(() => track.classList.add("is-ready"));
+}
+
 function initMarquees(){
-  document.querySelectorAll(".marquee-track").forEach(track => {
-    const group = track.querySelector(".marquee-group");
-    if (!group) return;
-    const clone = group.cloneNode(true);
-    clone.setAttribute("aria-hidden", "true");
-    track.appendChild(clone);
-    track.classList.add("is-ready");
-  });
+  const tracks = document.querySelectorAll(".marquee-track");
+  if (!tracks.length) return;
+  const rebuildAll = () => tracks.forEach(buildMarquee);
+  rebuildAll();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(rebuildAll);
+  let t;
+  window.addEventListener("resize", () => { clearTimeout(t); t = setTimeout(rebuildAll, 200); });
 }
 
 function bootAnimations(){

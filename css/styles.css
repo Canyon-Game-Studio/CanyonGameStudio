@@ -97,7 +97,7 @@ body::after{
   color: var(--orange); text-transform:uppercase; margin-bottom:24px;
 }
 .hero h1{
-  font-family:'Archivo Black'; font-size: clamp(64px, 10vw, 140px);
+  font-family:'Archivo Black'; font-size: clamp(42px, 10vw, 140px);
   line-height:.84; letter-spacing:-.03em; text-transform:uppercase;
 }
 .hero h1 .o{ color: var(--orange); }
