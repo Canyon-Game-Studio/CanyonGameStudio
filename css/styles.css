@@ -115,8 +115,7 @@ body::after{
   position:relative; aspect-ratio:1/1; width:100%;
   max-width:520px; justify-self:end;
 }
-.hero-mark .stamp{ position:absolute; inset:0; width:100%; height:100%; display:block; }
-.hero-mark .stamp text{ font-family:'Archivo Black', sans-serif; }
+.hero-mark .stamp{ position:absolute; inset:0; width:100%; height:100%; object-fit:contain; display:block; }
 
 /* ============ ABOUT ============ */
 .about{ background: var(--bone); padding: 90px 40px; position:relative; z-index:2; }
