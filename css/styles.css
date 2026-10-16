@@ -212,10 +212,23 @@ body::after{
 
 /* featured card: spans the whole first row with a wide banner */
 .game-card-featured{ grid-column: 1 / -1; }
+.cover-wrap{ position:relative; }
 .game-card-featured .game-cover{ aspect-ratio: 1920/622; }
 .game-card-featured .game-body{ padding:24px 28px 32px; }
 .game-card-featured .game-info h3{ font-size:30px; }
-.game-card-featured .game-desc{ font-size:17px; max-width:820px; }
+.game-card-featured .game-desc{ font-size:17px; }
+
+/* Steam buttons stacked over the featured cover (outside the cover link,
+   since links can't nest); same width so they read as a pair */
+.cover-actions{
+  position:absolute; top:14px; right:14px; z-index:4;
+  display:flex; flex-direction:column; align-items:stretch; gap:8px;
+}
+.cover-actions .steam-badge{ position:static; text-decoration:none; }
+.cover-actions .steam-badge:hover,
+.cover-actions .steam-badge:focus-visible{
+  background: var(--orange); color: var(--ink); border-color: var(--orange);
+}
 
 /* clickable cover (Steam link) */
 .game-cover-link{ display:block; text-decoration:none; cursor:pointer; }
@@ -240,10 +253,6 @@ body::after{
 @keyframes wipPulse{
   0%, 100%{ opacity:1; }
   50%{ opacity:.25; }
-}
-.game-cover-link:hover .steam-badge,
-.game-cover-link:focus-visible .steam-badge{
-  background: var(--orange); color: var(--ink); border-color: var(--orange);
 }
 @media (prefers-reduced-motion: reduce){
   .game-cover-link .game-art{ transition:none; }
@@ -336,6 +345,9 @@ footer{
   .game-card-featured .game-body{ padding:20px 22px 28px; }
   .game-card-featured .game-info h3{ font-size:22px; }
   .game-card-featured .game-desc{ font-size:15px; }
+  /* vertical capsule has its logo up top: buttons go to the bottom, tape to the sky */
+  .cover-actions{ top:auto; bottom:14px; }
+  .game-card-featured .tape.tape-bottom{ top:14px; bottom:auto; }
   .footer-wrap{ flex-direction:column; }
 }
 @media (max-width: 560px){
