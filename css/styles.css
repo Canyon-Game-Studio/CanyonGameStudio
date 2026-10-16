@@ -210,13 +210,20 @@ body::after{
   margin-top:10px; flex:1;
 }
 
+/* featured card: spans the whole first row with a wide banner */
+.game-card-featured{ grid-column: 1 / -1; }
+.game-card-featured .game-cover{ aspect-ratio: 1920/622; }
+.game-card-featured .game-body{ padding:24px 28px 32px; }
+.game-card-featured .game-info h3{ font-size:30px; }
+.game-card-featured .game-desc{ font-size:17px; max-width:820px; }
+
 /* clickable cover (Steam link) */
 .game-cover-link{ display:block; text-decoration:none; cursor:pointer; }
 .game-cover-link .game-art{ transition: transform .5s cubic-bezier(.22,1,.36,1), filter .35s ease; }
 .game-cover-link:hover .game-art,
 .game-cover-link:focus-visible .game-art{ transform: scale(1.04); filter: brightness(1.08); }
 .game-cover-link:focus-visible{ outline:2px solid var(--orange); outline-offset:-2px; }
-.steam-badge{
+.steam-badge, .wip-badge{
   position:absolute; top:14px; right:14px; z-index:3;
   display:inline-flex; align-items:center; gap:7px;
   font-family:'JetBrains Mono'; font-size:10px; font-weight:700; letter-spacing:.16em;
@@ -225,12 +232,22 @@ body::after{
   transition: background .25s ease, color .25s ease, border-color .25s ease;
 }
 .steam-badge svg{ width:14px; height:14px; flex:none; }
+/* "work in progress" badge: same look as the Steam badge, with a pulsing dot */
+.wip-dot{
+  width:7px; height:7px; border-radius:50%; flex:none;
+  background: var(--orange); animation: wipPulse 1.6s ease-in-out infinite;
+}
+@keyframes wipPulse{
+  0%, 100%{ opacity:1; }
+  50%{ opacity:.25; }
+}
 .game-cover-link:hover .steam-badge,
 .game-cover-link:focus-visible .steam-badge{
   background: var(--orange); color: var(--ink); border-color: var(--orange);
 }
 @media (prefers-reduced-motion: reduce){
   .game-cover-link .game-art{ transition:none; }
+  .wip-dot{ animation:none; }
   .game-cover-link:hover .game-art,
   .game-cover-link:focus-visible .game-art{ transform:none; }
 }
@@ -313,8 +330,12 @@ footer{
   .section-head{ flex-direction:column; align-items:flex-start; }
   .section-head .side{ text-align:left; }
   .about-cols{ grid-template-columns:1fr; }
-  .games-grid{ grid-template-columns:1fr; }
-  .game-cover-link{ aspect-ratio: 748/896; }
+  .games-grid{ grid-template-columns:minmax(0, 1fr); }
+  .game-info{ flex-wrap:wrap; row-gap:6px; }
+  .game-card .game-cover-link{ aspect-ratio: 748/896; }
+  .game-card-featured .game-body{ padding:20px 22px 28px; }
+  .game-card-featured .game-info h3{ font-size:22px; }
+  .game-card-featured .game-desc{ font-size:15px; }
   .footer-wrap{ flex-direction:column; }
 }
 @media (max-width: 560px){
