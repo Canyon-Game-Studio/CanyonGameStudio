@@ -4,19 +4,19 @@
   "rewrites": [
     {
       "source": "/cgs/a.js",
-      "destination": "/_vercel/insights/script.js"
+      "destination": "https://www.canyongamestudio.com/_vercel/insights/script.js"
     },
     {
       "source": "/cgs/v/",
-      "destination": "/_vercel/insights/view"
+      "destination": "https://www.canyongamestudio.com/_vercel/insights/view"
     },
     {
       "source": "/cgs/e/",
-      "destination": "/_vercel/insights/event"
+      "destination": "https://www.canyongamestudio.com/_vercel/insights/event"
     },
     {
       "source": "/cgs/s/",
-      "destination": "/_vercel/insights/session"
+      "destination": "https://www.canyongamestudio.com/_vercel/insights/session"
     }
   ],
   "redirects": [

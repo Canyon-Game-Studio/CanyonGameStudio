@@ -106,12 +106,13 @@ const both = (src) => [src, `${src}/`];
 // Vercel Web Analytics served from our own paths: ad blockers list the default
 // /_vercel/insights URLs, which would hide most PC gamers from the stats.
 // Endpoints end in "/" so trailingSlash never redirects the beacons.
+// Destinations must be full URLs: Vercel ignores path-only rewrites to /_vercel.
 const analytics = [
-  ["/cgs/a.js", "/_vercel/insights/script.js"],
-  ["/cgs/v/", "/_vercel/insights/view"],
-  ["/cgs/e/", "/_vercel/insights/event"],
-  ["/cgs/s/", "/_vercel/insights/session"],
-];
+  ["/cgs/a.js", "script.js"],
+  ["/cgs/v/", "view"],
+  ["/cgs/e/", "event"],
+  ["/cgs/s/", "session"],
+].map(([src, dest]) => [src, `${SITE.url}/_vercel/insights/${dest}`]);
 
 write("vercel.json", JSON.stringify({
   cleanUrls: true,
