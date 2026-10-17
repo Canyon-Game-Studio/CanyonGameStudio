@@ -1,5 +1,1 @@
-<?xml version="1.0"?>
-<svg style="width:96px" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
-              <rect width="500" height="500" fill="#1A0F0C"></rect>
-              <path d="M40 420 L40 280 L140 220 L230 260 L300 200 L380 250 L460 220 L460 420 Z" fill="#F0660A"></path>
-            </svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#F0660A"/><polygon points="19.00,74.39 32.78,46.83 39.67,57.17 50.00,29.61 60.33,53.72 70.67,39.94 81.00,74.39" fill="#1A0F0C"/></svg>

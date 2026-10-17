@@ -78,8 +78,9 @@ function layout(ctx, o) {
 ${o.noindex ? `<meta name="robots" content="noindex"/>\n` : ""}${alts}
 <script>${HEAD_SCRIPT}</script>
 <meta name="theme-color" content="#1A0F0C"/>
-<link rel="icon" type="image/svg+xml" href="${ctx.asset("/images/favicon-48.svg")}"/>
-<link rel="icon" type="image/png" sizes="32x32" href="${ctx.asset("/images/favicon-32.png")}"/>
+<link rel="icon" href="/favicon.ico" sizes="48x48"/>
+<link rel="icon" type="image/svg+xml" href="${ctx.asset("/images/favicon.svg")}"/>
+<link rel="icon" type="image/png" sizes="96x96" href="${ctx.asset("/images/favicon-96.png")}"/>
 <link rel="apple-touch-icon" sizes="180x180" href="${ctx.asset("/images/apple-touch-icon.png")}"/>
 <link rel="manifest" href="/site.webmanifest"/>
 <link rel="preload" href="/fonts/ArchivoBlack-400-latin.woff2" as="font" type="font/woff2" crossorigin/>
