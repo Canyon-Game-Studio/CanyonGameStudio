@@ -79,6 +79,18 @@ document.querySelectorAll('.lang-toggle button').forEach(btn => {
   btn.addEventListener('click', () => applyLang(btn.dataset.lang));
 });
 
+// ============ Steam Next Fest demo ============
+// The demo URL only lives through Next Fest (ends 26 Oct 2026, 10:00 PDT). After
+// that, drop the demo button and point the cover at the main store page.
+const DEMO_ENDS = Date.UTC(2026, 9, 26, 17);
+if (Date.now() >= DEMO_ENDS){
+  document.querySelectorAll('[data-demo-only]').forEach(el => el.remove());
+  document.querySelectorAll('[data-after-demo-href]').forEach(el => {
+    el.href = el.dataset.afterDemoHref;
+    el.setAttribute('aria-label', el.dataset.afterDemoLabel);
+  });
+}
+
 // init from saved pref
 let savedLang = 'en';
 try{ savedLang = localStorage.getItem('canyon_lang') || 'en'; }catch(e){}
