@@ -100,7 +100,11 @@ const shortLinks = [
   ["/steam", utm(SITE.steamDeveloper, "shortlink", "steam")],
   ["/instagram", SITE.instagram],
 ];
-const aliases = [["/trashparty", "trash-party"], ["/trashcorp", "trash-corp"], ["/trashblood", "trash-blood"]];
+const aliases = [
+  ["/trashparty", "/trash-party/"], ["/trashcorp", "/trash-corp/"],
+  // TrashBlood is one word: the page moved from /trash-blood/ on 17 Oct 2026
+  ["/trash-blood", "/trashblood/"], ["/pt/trash-blood", "/pt/trashblood/"],
+];
 const both = (src) => [src, `${src}/`];
 
 // Vercel Web Analytics served from our own paths: ad blockers list the default
@@ -120,7 +124,7 @@ write("vercel.json", JSON.stringify({
   rewrites: analytics.map(([source, destination]) => ({ source, destination })),
   redirects: [
     ...shortLinks.flatMap(([src, dest]) => both(src).map((s) => ({ source: s, destination: dest, permanent: false }))),
-    ...aliases.flatMap(([src, slug]) => both(src).map((s) => ({ source: s, destination: `/${slug}/`, permanent: true }))),
+    ...aliases.flatMap(([src, dest]) => both(src).map((s) => ({ source: s, destination: dest, permanent: true }))),
   ],
   headers: [
     { source: "/(.*)", headers: [

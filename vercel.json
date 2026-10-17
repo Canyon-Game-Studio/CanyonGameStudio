@@ -81,13 +81,23 @@
       "permanent": true
     },
     {
-      "source": "/trashblood",
-      "destination": "/trash-blood/",
+      "source": "/trash-blood",
+      "destination": "/trashblood/",
       "permanent": true
     },
     {
-      "source": "/trashblood/",
-      "destination": "/trash-blood/",
+      "source": "/trash-blood/",
+      "destination": "/trashblood/",
+      "permanent": true
+    },
+    {
+      "source": "/pt/trash-blood",
+      "destination": "/pt/trashblood/",
+      "permanent": true
+    },
+    {
+      "source": "/pt/trash-blood/",
+      "destination": "/pt/trashblood/",
       "permanent": true
     }
   ],

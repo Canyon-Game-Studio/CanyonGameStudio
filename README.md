@@ -15,7 +15,7 @@ node tools/build.mjs
 
 Para ver o site no seu PC, rode `node tools/serve.mjs` e abra http://localhost:8080. Abrir o `index.html` direto do disco não carrega o CSS, porque as páginas usam caminhos a partir da raiz (`/css/...`).
 
-Não edite `index.html`, `pt/`, `trash-party/`, `trash-corp/`, `trash-blood/`, `404.html`, `sitemap.xml`, `site.webmanifest` ou `vercel.json` à mão: o build sobrescreve.
+Não edite `index.html`, `pt/`, `trash-party/`, `trash-corp/`, `trashblood/`, `404.html`, `sitemap.xml`, `site.webmanifest` ou `vercel.json` à mão: o build sobrescreve.
 
 O build também:
 - coloca `?v=<hash>` em CSS, JS e imagens (cache longo seguro);
@@ -27,7 +27,7 @@ O build também:
 | URL | Página |
 |---|---|
 | `/` e `/pt/` | Home (EN / PT) |
-| `/trash-party/`, `/trash-corp/`, `/trash-blood/` | Páginas dos jogos (e as versões em `/pt/...`) |
+| `/trash-party/`, `/trash-corp/`, `/trashblood/` | Páginas dos jogos (e as versões em `/pt/...`) |
 
 Links curtos (bio do Instagram, posts): `/demo`, `/wishlist`, `/steam`, `/instagram`.
 

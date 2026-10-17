@@ -303,7 +303,7 @@ export function home(ctx, lang) {
     <h2 class="reveal-title" id="manifesto-h">${t.manifesto_title}</h2>
     <p>${t.manifesto_body}</p>
   </div>
-  ${marquee(["CANYON GAME STUDIO", "TRASH PARTY", "TRASH CORP.", "TRASH BLOOD"])}
+  ${marquee(["CANYON GAME STUDIO", "TRASH PARTY", "TRASH CORP.", "TRASHBLOOD"])}
 </section>
 
 <!-- ============ GAMES ============ -->
@@ -350,7 +350,7 @@ export function home(ctx, lang) {
             <img class="game-art" src="${ctx.asset("/images/TrashCorp.jpg")}" width="1024" height="560" loading="lazy" decoding="async" alt="${esc(tc[lang].alt)}">
           </picture>`)}
 
-      <!-- TRASH BLOOD -->
+      <!-- TRASHBLOOD -->
       ${wipCard(tb, `<picture>
             <source type="image/webp" srcset="${ctx.asset("/images/TrashBlood-960.webp")} 960w, ${ctx.asset("/images/TrashBlood.webp")} 1920w" sizes="(max-width: 900px) 100vw, 700px">
             <img class="game-art" src="${ctx.asset("/images/TrashBlood.jpg")}" width="1920" height="1080" loading="lazy" decoding="async" alt="${esc(tb[lang].alt)}">
