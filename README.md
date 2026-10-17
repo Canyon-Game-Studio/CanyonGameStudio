@@ -35,6 +35,11 @@ Links curtos (bio do Instagram, posts): `/demo`, `/wishlist`, `/steam`, `/instag
 
 Adicione um item em `GAMES` (`src/content.mjs`), coloque as imagens em `images/games/<slug>/` (`key-art-800.webp`, `key-art-1600.webp`, `key-art.jpg`, `og.jpg` 1200×630) e rode o build.
 
+## Métricas
+
+- **Vercel Web Analytics:** ativado no painel da Vercel; as páginas carregam `/_vercel/insights/script.js` (sem cookies). O plano Hobby guarda 30 dias de dados.
+- **Steam UTM:** todos os links para a Steam têm `utm_source=canyongamestudio` (Steamworks → Marketing → UTM Analytics).
+
 ## Demo da Steam (Next Fest)
 
 O botão da demo some sozinho depois de `SITE.demoEnds` (26/10/2026). Rode o build de novo depois dessa data para atualizar os textos de compartilhamento e o link curto `/demo`.
