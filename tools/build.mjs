@@ -103,9 +103,20 @@ const shortLinks = [
 const aliases = [["/trashparty", "trash-party"], ["/trashcorp", "trash-corp"], ["/trashblood", "trash-blood"]];
 const both = (src) => [src, `${src}/`];
 
+// Vercel Web Analytics served from our own paths: ad blockers list the default
+// /_vercel/insights URLs, which would hide most PC gamers from the stats.
+// Endpoints end in "/" so trailingSlash never redirects the beacons.
+const analytics = [
+  ["/cgs/a.js", "/_vercel/insights/script.js"],
+  ["/cgs/v/", "/_vercel/insights/view"],
+  ["/cgs/e/", "/_vercel/insights/event"],
+  ["/cgs/s/", "/_vercel/insights/session"],
+];
+
 write("vercel.json", JSON.stringify({
   cleanUrls: true,
   trailingSlash: true,
+  rewrites: analytics.map(([source, destination]) => ({ source, destination })),
   redirects: [
     ...shortLinks.flatMap(([src, dest]) => both(src).map((s) => ({ source: s, destination: dest, permanent: false }))),
     ...aliases.flatMap(([src, slug]) => both(src).map((s) => ({ source: s, destination: `/${slug}/`, permanent: true }))),

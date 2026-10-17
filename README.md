@@ -37,7 +37,7 @@ Adicione um item em `GAMES` (`src/content.mjs`), coloque as imagens em `images/g
 
 ## Métricas
 
-- **Vercel Web Analytics:** ativado no painel da Vercel; as páginas carregam `/_vercel/insights/script.js` (sem cookies). O plano Hobby guarda 30 dias de dados.
+- **Vercel Web Analytics:** ativado no painel da Vercel (sem cookies). O script e o envio passam por `/cgs/...`, que o `vercel.json` repassa para `/_vercel/insights/...`; assim bloqueadores de anúncio não escondem as visitas. O plano Hobby guarda 30 dias de dados.
 - **Steam UTM:** todos os links para a Steam têm `utm_source=canyongamestudio` (Steamworks → Marketing → UTM Analytics).
 
 ## Demo da Steam (Next Fest)

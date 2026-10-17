@@ -86,7 +86,7 @@ ${o.noindex ? `<meta name="robots" content="noindex"/>\n` : ""}${alts}
 <link rel="preload" href="/fonts/BarlowCondensed-400-latin.woff2" as="font" type="font/woff2" crossorigin/>
 <link rel="stylesheet" href="${ctx.asset("/css/fonts.css")}"/>
 <link rel="stylesheet" href="${ctx.asset("/css/styles.css")}"/>${og}${ld}
-<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/cgs/a.js" data-view-endpoint="/cgs/v/" data-event-endpoint="/cgs/e/" data-session-endpoint="/cgs/s/"></script>
 </head>
 <body${o.bodyClass ? ` class="${o.bodyClass}"` : ""}>
 <a class="skip-link" href="#main">${t.skip}</a>
