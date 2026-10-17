@@ -101,6 +101,13 @@ body::after{
   line-height:.84; letter-spacing:-.03em; text-transform:uppercase;
 }
 .hero h1 .o{ color: var(--orange); }
+.hero h1 .reveal-title{ display:block; }
+
+/* visible to search engines and screen readers only */
+.sr-only{
+  position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+  overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+}
 .hero .tag{
   margin-top:32px; font-size:22px; line-height:1.4;
   color: var(--bone-2); max-width:520px;

@@ -3,12 +3,98 @@
 <head>
 <script>document.documentElement.classList.add('js')</script>
 <meta charset="utf-8"/>
-<title>Canyon Game Studio</title>
+<title>Canyon Game Studio | Trash Party, Trash Corp & Trash Blood</title>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<meta name="description" content="Canyon Game Studio, an indie co-op game studio from Praia Grande, Brazil."/>
+<meta name="description" content="Indie co-op game studio from Brazil. Play the Trash Party demo on Steam, an online co-op party game for up to 4 players. Also making Trash Corp and Trash Blood."/>
 <meta name="theme-color" content="#1A0F0C"/>
+<link rel="canonical" href="https://www.canyongamestudio.com/"/>
 <link rel="icon" type="image/svg+xml" href="images/favicon-48.svg"/>
-<link rel="apple-touch-icon" href="images/app-icon.svg"/>
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png"/>
+
+<!-- Social share (Discord, WhatsApp, X, LinkedIn...) -->
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="Canyon Game Studio"/>
+<meta property="og:url" content="https://www.canyongamestudio.com/"/>
+<meta property="og:title" content="Canyon Game Studio | Trash Party Demo out now on Steam"/>
+<meta property="og:description" content="Indie co-op game studio from Brazil. Play the Trash Party demo on Steam, an online co-op party game for up to 4 players."/>
+<meta property="og:image" content="https://www.canyongamestudio.com/images/og-image.jpg"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta property="og:image:alt" content="Trash Party key art: garbage collectors and their truck on a city street"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:locale:alternate" content="pt_BR"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Canyon Game Studio | Trash Party Demo out now on Steam"/>
+<meta name="twitter:description" content="Indie co-op game studio from Brazil. Play the Trash Party demo on Steam, an online co-op party game for up to 4 players."/>
+<meta name="twitter:image" content="https://www.canyongamestudio.com/images/og-image.jpg"/>
+
+<!-- Structured data: studio + games -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.canyongamestudio.com/#studio",
+      "name": "Canyon Game Studio",
+      "url": "https://www.canyongamestudio.com/",
+      "logo": "https://www.canyongamestudio.com/images/CanyonGameStudio-Logo.png",
+      "email": "contact@canyongamestudio.com",
+      "foundingDate": "2026",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Praia Grande",
+        "addressRegion": "SC",
+        "addressCountry": "BR"
+      },
+      "sameAs": [
+        "https://www.linkedin.com/company/canyon-game-studio/"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.canyongamestudio.com/#website",
+      "url": "https://www.canyongamestudio.com/",
+      "name": "Canyon Game Studio",
+      "inLanguage": ["en", "pt-BR"],
+      "publisher": { "@id": "https://www.canyongamestudio.com/#studio" }
+    },
+    {
+      "@type": "VideoGame",
+      "name": "Trash Party",
+      "url": "https://store.steampowered.com/app/3591370/Trash_Party/",
+      "image": "https://www.canyongamestudio.com/images/og-image.jpg",
+      "description": "Online co-op party game for up to 4 players. Hop on the garbage truck and clean up the city with your crew.",
+      "genre": ["Co-op", "Party", "Arcade"],
+      "playMode": ["CoOp", "MultiPlayer"],
+      "numberOfPlayers": { "@type": "QuantitativeValue", "minValue": 1, "maxValue": 4 },
+      "gamePlatform": "PC",
+      "author": { "@id": "https://www.canyongamestudio.com/#studio" }
+    },
+    {
+      "@type": "VideoGame",
+      "name": "Trash Corp.",
+      "image": "https://www.canyongamestudio.com/images/TrashCorp.jpg",
+      "description": "Cooperative horror extraction game for 1 to 4 players. Drive a space garbage truck between planets and hit the quota.",
+      "genre": ["Co-op", "Horror", "Extraction"],
+      "playMode": ["CoOp", "MultiPlayer"],
+      "numberOfPlayers": { "@type": "QuantitativeValue", "minValue": 1, "maxValue": 4 },
+      "gamePlatform": "PC",
+      "author": { "@id": "https://www.canyongamestudio.com/#studio" }
+    },
+    {
+      "@type": "VideoGame",
+      "name": "Trash Blood",
+      "image": "https://www.canyongamestudio.com/images/TrashBlood.jpg",
+      "description": "Fast, hard-hitting top-down brawler. Build your own weapon from a metal pipe and scrap parts and fight through ever-tougher hordes.",
+      "genre": ["Brawler", "Roguelite"],
+      "gamePlatform": "PC",
+      "author": { "@id": "https://www.canyongamestudio.com/#studio" }
+    }
+  ]
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Archivo+Black&display=swap" rel="stylesheet">
@@ -42,7 +128,7 @@
   <div class="hero-wrap">
     <div>
       <div class="eyebrow" data-i18n="hero_eyebrow">Indie Co-op Studio · Praia Grande, Brazil</div>
-      <h1 class="reveal-title" data-i18n="hero_title" data-i18n-html>PLAY<br/>TOGET<span class="o">H</span>ER.</h1>
+      <h1><span class="sr-only">Canyon Game Studio: </span><span class="reveal-title" data-i18n="hero_title" data-i18n-html>PLAY<br/>TOGET<span class="o">H</span>ER.</span></h1>
       <p class="tag" data-i18n="hero_tag">We build cooperative games made for the nights you spend with friends, the ones that end with "just one more round."</p>
       <div class="chips">
         <span class="chip filled" data-i18n="chip_coop">CO-OP</span>
@@ -52,7 +138,7 @@
       </div>
     </div>
     <div class="hero-mark">
-      <img class="stamp" src="images/CanyonGameStudio-Logo.png" alt="Canyon Game Studio">
+      <img class="stamp" src="images/CanyonGameStudio-Logo.png" width="1081" height="1081" alt="Canyon Game Studio">
     </div>
   </div>
 </header>
@@ -135,8 +221,8 @@
           <a class="game-cover game-cover-link" href="https://store.steampowered.com/app/5394270/Trash_Party_Demo" target="_blank" rel="noopener" aria-label="Trash Party Demo on Steam">
             <span class="tape tape-bottom" data-i18n="tag_players">1–4 Players</span>
             <picture>
-              <source media="(max-width: 900px)" srcset="images/TrashParty-mobile.png">
-              <img class="game-art" src="images/TrashParty.png" alt="Trash Party key art">
+              <source media="(max-width: 900px)" srcset="images/TrashParty-mobile.jpg" width="748" height="896">
+              <img class="game-art" src="images/TrashParty.jpg" width="1920" height="622" loading="lazy" decoding="async" alt="Trash Party key art: garbage collectors and their truck on a city street">
             </picture>
           </a>
         </div>
@@ -154,7 +240,7 @@
         <div class="game-cover">
           <span class="tape tape-bottom" data-i18n="tag_players">1–4 Players</span>
           <span class="wip-badge"><span class="wip-dot" aria-hidden="true"></span><span data-i18n="wip_badge">Work in Progress</span></span>
-          <img class="game-art" src="images/TrashCorp.png" alt="Trash Corp. key art">
+          <img class="game-art" src="images/TrashCorp.jpg" width="1024" height="560" loading="lazy" decoding="async" alt="Trash Corp. key art: alien crew and a space garbage truck on an asteroid">
         </div>
         <div class="game-body">
           <div class="game-info">
@@ -169,7 +255,7 @@
       <div class="game-card">
         <div class="game-cover">
           <span class="wip-badge"><span class="wip-dot" aria-hidden="true"></span><span data-i18n="wip_badge">Work in Progress</span></span>
-          <img class="game-art" src="images/TrashBlood.jpg" alt="Trash Blood key art">
+          <img class="game-art" src="images/TrashBlood.jpg" width="1920" height="1080" loading="lazy" decoding="async" alt="Trash Blood key art: a wooden puppet fighter gripping a metal pipe">
         </div>
         <div class="game-body">
           <div class="game-info">
@@ -186,7 +272,7 @@
 
 <!-- ============ CONTACT ============ -->
 <section class="contact" id="contact">
-  <img class="contact-bg" src="images/banner-bg.svg" alt="" aria-hidden="true">
+  <img class="contact-bg" src="images/banner-bg.svg" loading="lazy" alt="" aria-hidden="true">
   <div class="contact-wrap">
     <h2 class="reveal-title" data-i18n="contact_title" data-i18n-html>LET'S BUILD<br/>SOMETHING.</h2>
     <p data-i18n="contact_body">Want to collaborate, publish with us, or just talk games? We'd love to hear from you.</p>
