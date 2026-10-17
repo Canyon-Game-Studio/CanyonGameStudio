@@ -1,13 +1,15 @@
 // ============ reveal-title animation ============
 // Splits a title into line / word / char spans and slides each char up into
-// place when the title scrolls into view. Re-runnable: call it again after the
-// i18n layer rewrites a title's innerHTML (language toggle) to re-split.
+// place when the title scrolls into view.
 // Inline elements inside a title (e.g. a coloured <span>) are preserved by
 // copying their class onto the char spans, so the letters still animate AND
 // keep their styling.
+// Accessibility: the split letters are hidden from screen readers, which read a
+// plain copy of the title instead; with "reduce motion" on, titles just appear.
 function initRevealTitles(){
   const widgets = document.querySelectorAll(".reveal-title");
   if (!widgets.length) return;
+  const reduceMotion = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   widgets.forEach(widget => {
     const title = widget.querySelector(".elementor-heading-title") || widget;
@@ -17,13 +19,27 @@ function initRevealTitles(){
     source.innerHTML = title.innerHTML;
     title.innerHTML = "";
 
+    // What assistive tech reads: the title as one line of text.
+    const spoken = document.createElement("span");
+    spoken.className = "sr-only";
+    const readable = (node) => [...node.childNodes].map(n =>
+      n.nodeName === "BR" ? " " : (n.nodeType === Node.TEXT_NODE ? n.textContent : readable(n))).join("");
+    spoken.textContent = readable(source).replace(/\s+/g, " ").trim();
+
+    // What everyone sees: the animated letters.
+    const visual = document.createElement("span");
+    visual.className = "reveal-visual";
+    visual.setAttribute("aria-hidden", "true");
+    title.appendChild(spoken);
+    title.appendChild(visual);
+
     let line = null;
     let word = null;
 
     const newLine = () => {
       line = document.createElement("span");
       line.className = "line-wrap";
-      title.appendChild(line);
+      visual.appendChild(line);
       word = null;
     };
 
@@ -67,6 +83,7 @@ function initRevealTitles(){
     const chars = title.querySelectorAll(".char");
 
     if (widget._revealObserver) widget._revealObserver.disconnect();
+    if (reduceMotion) { chars.forEach(c => c.classList.add("is-visible")); return; }
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -155,6 +172,7 @@ function initMarquees(){
 }
 
 function bootAnimations(){
+  initRevealTitles();
   initScaleIns();
   initMarquees();
 }

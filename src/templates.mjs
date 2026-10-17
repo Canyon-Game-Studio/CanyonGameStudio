@@ -1,0 +1,593 @@
+// ============================================================================
+// Page templates. Each function returns a full HTML string.
+// `ctx` comes from tools/build.mjs: { asset(path) -> path?v=hash, demoLive, today }
+// ============================================================================
+import { SITE, LANGS, T, GAMES, utm } from "./content.mjs";
+
+// ---------- helpers ----------
+const esc = (s) => String(s)
+  .replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+const plain = (html) => html.replace(/<br\s*\/?>/g, " ").replace(/<[^>]+>/g, "");
+const abs = (path) => SITE.url + path;
+export const homePath = (lang) => `${LANGS[lang].prefix}/`;
+export const gamePath = (lang, slug) => `${LANGS[lang].prefix}/${slug}/`;
+const other = (lang) => (lang === "en" ? "pt" : "en");
+
+// External link that says it opens a new tab (for screen readers only).
+const ext = (t, href, inner, attrs = "") =>
+  `<a href="${esc(href)}" target="_blank" rel="noopener" ${attrs}>${inner}<span class="sr-only">${t.newTab}</span></a>`;
+
+const STEAM_ICON = `<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11.98 2C6.5 2 2.01 6.2 1.55 11.55l5.36 2.21a3.03 3.03 0 0 1 1.72-.53l2.39-3.46v-.05a4.04 4.04 0 1 1 4.04 4.04h-.1l-3.41 2.43c0 .05.01.1.01.15a3.04 3.04 0 0 1-6.03.5l-3.83-1.58A10 10 0 1 0 11.98 2m-4.7 15.16.83.34a2.29 2.29 0 0 0 3-1.24 2.29 2.29 0 0 0-2.12-3.17l.9.37a1.68 1.68 0 1 1-1.29 3.11zm10.47-7.42a2.7 2.7 0 1 0-5.39 0 2.7 2.7 0 0 0 5.39 0m-4.72 0a2.03 2.03 0 1 1 4.05 0 2.03 2.03 0 0 1-4.05 0"/></svg>`;
+const INSTA_ICON = `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.6" cy="6.4" r="1" fill="currentColor" stroke="none"/></svg>`;
+const MOUNTAIN = `<span class="mq-icon"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M2 34 L10 18 L14 24 L20 8 L26 22 L32 14 L38 34 Z" fill="currentColor"/></svg></span>`;
+const CANYON_BG = `<svg class="canyon-bg" viewBox="0 0 1600 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <path d="M0 400 L150 280 L280 320 L400 200 L540 260 L680 160 L820 220 L960 140 L1100 200 L1240 130 L1400 210 L1600 170 L1600 500 L0 500 Z" fill="#F0660A"/>
+    <path d="M0 450 L180 380 L340 410 L500 320 L640 360 L800 260 L960 320 L1120 250 L1280 300 L1440 260 L1600 330 L1600 500 L0 500 Z" fill="#1A3D63" opacity="0.7"/>
+  </svg>`;
+const WIP = (t) => `<span class="wip-badge"><span class="wip-dot" aria-hidden="true"></span><span>${t.wip_badge}</span></span>`;
+
+const marquee = (words) => `<div class="sign-marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <div class="marquee-group">
+        ${words.map((w) => `<span class="mq-text">${w}</span>\n        ${MOUNTAIN}`).join("\n        ")}
+      </div>
+    </div>
+  </div>`;
+
+// Head script: marks JS as available and, on a first visit from a Portuguese
+// browser, sends the visitor to the PT version (never on in-site navigation,
+// never once they picked a language). Its hash is allowed in the CSP.
+export const HEAD_SCRIPT = `(function(){var d=document.documentElement;d.classList.add('js');try{if(!localStorage.getItem('canyon_lang')&&d.lang==='en'&&/^pt/i.test(navigator.language||'')&&document.referrer.indexOf(location.host)<0){var a=document.querySelector('link[rel=alternate][hreflang="pt-BR"]');if(a)location.replace(new URL(a.href).pathname)}}catch(e){}})();`;
+
+// ---------- layout ----------
+function layout(ctx, o) {
+  const { lang } = o;
+  const t = T[lang], L = LANGS[lang];
+  const alts = o.alternates
+    ? `<link rel="canonical" href="${abs(o.path)}"/>
+<link rel="alternate" hreflang="en" href="${abs(o.alternates.en)}"/>
+<link rel="alternate" hreflang="pt-BR" href="${abs(o.alternates.pt)}"/>
+<link rel="alternate" hreflang="x-default" href="${abs(o.alternates.en)}"/>`
+    : "";
+  const og = o.og ? `
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="${SITE.name}"/>
+<meta property="og:url" content="${abs(o.path)}"/>
+<meta property="og:title" content="${esc(o.og.title)}"/>
+<meta property="og:description" content="${esc(o.og.desc)}"/>
+<meta property="og:image" content="${abs(o.og.image)}"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta property="og:image:alt" content="${esc(o.og.alt)}"/>
+<meta property="og:locale" content="${L.ogLocale}"/>
+<meta property="og:locale:alternate" content="${LANGS[other(lang)].ogLocale}"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="${esc(o.og.title)}"/>
+<meta name="twitter:description" content="${esc(o.og.desc)}"/>
+<meta name="twitter:image" content="${abs(o.og.image)}"/>` : "";
+  const ld = o.jsonld ? `\n<script type="application/ld+json">\n${JSON.stringify(o.jsonld, null, 2)}\n</script>` : "";
+
+  return `<!doctype html>
+<!-- Generated by tools/build.mjs from src/. Edit the source files, not this one. -->
+<html lang="${L.code}">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>${esc(o.title)}</title>
+<meta name="description" content="${esc(o.desc)}"/>
+${o.noindex ? `<meta name="robots" content="noindex"/>\n` : ""}${alts}
+<script>${HEAD_SCRIPT}</script>
+<meta name="theme-color" content="#1A0F0C"/>
+<link rel="icon" type="image/svg+xml" href="${ctx.asset("/images/favicon-48.svg")}"/>
+<link rel="icon" type="image/png" sizes="32x32" href="${ctx.asset("/images/favicon-32.png")}"/>
+<link rel="apple-touch-icon" sizes="180x180" href="${ctx.asset("/images/apple-touch-icon.png")}"/>
+<link rel="manifest" href="/site.webmanifest"/>
+<link rel="preload" href="/fonts/ArchivoBlack-400-latin.woff2" as="font" type="font/woff2" crossorigin/>
+<link rel="preload" href="/fonts/BarlowCondensed-400-latin.woff2" as="font" type="font/woff2" crossorigin/>
+<link rel="stylesheet" href="${ctx.asset("/css/fonts.css")}"/>
+<link rel="stylesheet" href="${ctx.asset("/css/styles.css")}"/>${og}${ld}
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body${o.bodyClass ? ` class="${o.bodyClass}"` : ""}>
+<a class="skip-link" href="#main">${t.skip}</a>
+
+${nav(ctx, lang, o.alternates, o.isHome)}
+
+<main id="main" tabindex="-1">
+${o.body}
+</main>
+
+${footer(ctx, lang, o.isHome)}
+
+<script src="${ctx.asset("/js/reveal.js")}"></script>
+<script src="${ctx.asset("/js/main.js")}"></script>${o.scripts || ""}
+</body>
+</html>
+`;
+}
+
+function nav(ctx, lang, alternates, isHome) {
+  const t = T[lang];
+  const home = homePath(lang);
+  const anchor = (id) => (isHome ? `#${id}` : `${home}#${id}`);
+  const alt = alternates || { en: homePath("en"), pt: homePath("pt") };
+  const cur = (l) => (l === lang ? ` aria-current="true"` : "");
+  return `<!-- ============ NAV ============ -->
+<nav class="nav" aria-label="${lang === "en" ? "Main" : "Principal"}">
+  <a class="nav-brand" href="${home}" aria-label="Canyon Game Studio">
+    <span class="nav-mark"><img src="${ctx.asset("/images/nav-mark.svg")}" alt="" width="26" height="26"></span>
+    <span class="nav-wordmark">CANYON<span class="o">.</span></span>
+  </a>
+  <div class="nav-links">
+    <a href="${anchor("about")}">${t.nav_about}</a>
+    <a href="${anchor("games")}">${t.nav_games}</a>
+    <a href="${anchor("contact")}">${t.nav_contact}</a>
+    <div class="lang-toggle" role="group" aria-label="${t.langLabel}">
+      <a href="${alt.en}" hreflang="en" lang="en" data-lang="en" aria-label="English"${cur("en")}>EN</a>
+      <a href="${alt.pt}" hreflang="pt-BR" lang="pt-BR" data-lang="pt" aria-label="Português (Brasil)"${cur("pt")}>PT</a>
+    </div>
+  </div>
+</nav>`;
+}
+
+function footer(ctx, lang, isHome) {
+  const t = T[lang];
+  const home = homePath(lang);
+  const anchor = (id) => (isHome ? `#${id}` : `${home}#${id}`);
+  const camp = "footer";
+  return `<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="footer-wrap">
+    <div>
+      <div class="footer-brand">
+        <img class="fb-badge" src="${ctx.asset("/images/logo-04-horizontal-badge.svg")}" width="220" height="81" loading="lazy" alt="Canyon Game Studio">
+        <div class="fb-loc">${t.foot_loc}</div>
+      </div>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col">
+        <h2 class="footer-h">${t.foot_explore}</h2>
+        <a href="${anchor("about")}">${t.nav_about}</a>
+        <a href="${anchor("games")}">${t.nav_games}</a>
+        <a href="${anchor("contact")}">${t.nav_contact}</a>
+      </div>
+      <div class="footer-col">
+        <h2 class="footer-h">${t.foot_games}</h2>
+        ${GAMES.map((g) => `<a href="${gamePath(lang, g.slug)}">${g.name}</a>`).join("\n        ")}
+      </div>
+      <div class="footer-col">
+        <h2 class="footer-h">${t.foot_connect}</h2>
+        ${ext(t, utm(SITE.steamDeveloper, camp, "steam"), `<img src="${ctx.asset("/images/icon-steam.svg")}" alt="" width="17" height="17">\n          Steam`)}
+        ${ext(t, SITE.instagram, `<img src="${ctx.asset("/images/icon-instagram.svg")}" alt="" width="17" height="17">\n          Instagram`)}
+        ${ext(t, SITE.linkedin, `<img src="${ctx.asset("/images/icon-linkedin.svg")}" alt="" width="17" height="17">\n          LinkedIn`)}
+        <a href="mailto:${SITE.email}">
+          <img src="${ctx.asset("/images/icon-mail.svg")}" alt="" width="17" height="17">
+          ${SITE.email}
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Canyon Game Studio</span>
+    <span>${t.foot_tag}</span>
+  </div>
+</footer>`;
+}
+
+// ---------- structured data ----------
+const STUDIO_ID = `${SITE.url}/#studio`;
+const studioLd = () => ({
+  "@type": "Organization",
+  "@id": STUDIO_ID,
+  name: SITE.name,
+  url: `${SITE.url}/`,
+  logo: `${SITE.url}/images/CanyonGameStudio-Logo.png`,
+  email: SITE.email,
+  foundingDate: SITE.founded,
+  address: { "@type": "PostalAddress", addressLocality: "Praia Grande", addressRegion: "SC", addressCountry: "BR" },
+  sameAs: [SITE.steamDeveloper, SITE.instagram, SITE.linkedin],
+});
+
+function gameLd(g, lang) {
+  const c = g[lang];
+  const node = {
+    "@type": "VideoGame",
+    "@id": `${abs(gamePath("en", g.slug))}#game`,
+    name: g.name,
+    url: abs(gamePath(lang, g.slug)),
+    description: c.desc,
+    image: abs(`/images/games/${g.slug}/og.jpg`),
+    genre: g.ldGenre,
+    gamePlatform: "PC",
+    applicationCategory: "Game",
+    playMode: g.playMode,
+    author: { "@id": STUDIO_ID },
+    publisher: { "@id": STUDIO_ID },
+  };
+  if (g.players) node.numberOfPlayers = { "@type": "QuantitativeValue", minValue: g.players.min, maxValue: g.players.max };
+  if (g.steam) {
+    node.sameAs = [SITE.steamStore];
+    node.operatingSystem = "Windows";
+    node.inLanguage = ["en", "es-419", "pt-BR"];
+  }
+  if (g.trailer) {
+    node.trailer = {
+      "@type": "VideoObject",
+      name: T[lang].trailer_label,
+      description: c.tagline,
+      thumbnailUrl: abs(`/images/games/${g.slug}/og.jpg`),
+      contentUrl: abs(g.trailer.src),
+      uploadDate: "2026-10-16",
+      duration: "PT31S",
+    };
+  }
+  return node;
+}
+
+// ---------- shared pieces ----------
+const steamBtn = (t, href, label, cls, extra = "") =>
+  ext(t, href, `${STEAM_ICON}<span>${label}</span>`, `class="${cls}" ${extra}`);
+
+function keyArtPicture(ctx, g, lang, { sizes, eager = false, cls = "" }) {
+  const base = `/images/games/${g.slug}`;
+  return `<picture>
+          <source type="image/webp" srcset="${ctx.asset(`${base}/key-art-800.webp`)} 800w, ${ctx.asset(`${base}/key-art-1600.webp`)} 1600w" sizes="${sizes}">
+          <img${cls ? ` class="${cls}"` : ""} src="${ctx.asset(`${base}/key-art.jpg`)}" width="${g.keyArt.w}" height="${g.keyArt.h}" ${eager ? `fetchpriority="high"` : `loading="lazy"`} decoding="async" alt="${esc(g[lang].alt)}">
+        </picture>`;
+}
+
+// ---------- home ----------
+export function home(ctx, lang) {
+  const t = T[lang];
+  const [tp, tc, tb] = GAMES;
+  const camp = "home";
+  const learn = (g) => `<a class="game-more" href="${gamePath(lang, g.slug)}">${t.learn_more}<span class="sr-only">${t.learn_more_about}${g.name}</span> <span aria-hidden="true">→</span></a>`;
+
+  const wipCard = (g, picture) => `<div class="game-card">
+        <a class="game-cover game-cover-link" href="${gamePath(lang, g.slug)}" tabindex="-1" aria-hidden="true">
+          ${g.players ? `<span class="tape tape-bottom">${t.tag_players}</span>\n          ` : ""}${WIP(t)}
+          ${picture}
+        </a>
+        <div class="game-body">
+          <div class="game-info">
+            <h3><a href="${gamePath(lang, g.slug)}">${g.name}</a></h3>
+            <span class="genre">${g[lang].genre}</span>
+          </div>
+          <p class="game-desc">${g[lang].card}</p>
+          ${learn(g)}
+        </div>
+      </div>`;
+
+  const body = `<!-- ============ HERO / WHO WE ARE ============ -->
+<header class="hero" id="top">
+  ${CANYON_BG}
+  <div class="hero-wrap">
+    <div>
+      <div class="eyebrow">${t.hero_eyebrow}</div>
+      <h1><span class="sr-only">Canyon Game Studio: </span><span class="reveal-title">${t.hero_title}</span></h1>
+      <p class="tag">${t.hero_tag}</p>
+      <div class="chips">
+        ${t.chips.map((c, i) => `<span class="chip${i === 0 ? " filled" : ""}">${c}</span>`).join("\n        ")}
+      </div>
+    </div>
+    <div class="hero-mark">
+      <img class="stamp" src="${ctx.asset("/images/CanyonGameStudio-Logo.png")}" width="1081" height="1081" fetchpriority="high" alt="Canyon Game Studio">
+    </div>
+  </div>
+</header>
+
+<!-- ============ ABOUT ============ -->
+<section class="about" id="about" aria-labelledby="about-h">
+  <div class="about-wrap">
+    <div class="section-head">
+      <div>
+        <h2 class="reveal-title" id="about-h">${t.about_title}</h2>
+      </div>
+    </div>
+
+    <p class="about-lead">${t.about_lead}</p>
+
+    <div class="about-cols">
+      ${t.values.map(([h, p]) => `<div class="value-card">
+        <h3>${h}</h3>
+        <p>${p}</p>
+      </div>`).join("\n      ")}
+    </div>
+  </div>
+</section>
+
+<!-- ============ MANIFESTO ============ -->
+<section class="manifesto" aria-labelledby="manifesto-h">
+  <div class="manifesto-wrap">
+    <div class="kicker">${t.manifesto_kicker}</div>
+    <h2 class="reveal-title" id="manifesto-h">${t.manifesto_title}</h2>
+    <p>${t.manifesto_body}</p>
+  </div>
+  ${marquee(["CANYON GAME STUDIO", "TRASH PARTY", "TRASH CORP.", "TRASH BLOOD"])}
+</section>
+
+<!-- ============ GAMES ============ -->
+<section class="games" id="games" aria-labelledby="games-h">
+  <div class="about-wrap">
+    <div class="section-head">
+      <div>
+        <h2 class="reveal-title" id="games-h">${t.games_title}</h2>
+      </div>
+      <div class="side">${t.games_side}</div>
+    </div>
+
+    <div class="games-grid">
+      <!-- FEATURED: TRASH PARTY (full row on desktop, first on mobile) -->
+      <div class="game-card game-card-featured">
+        <div class="cover-wrap">
+          <div class="cover-actions">
+            ${steamBtn(t, utm(SITE.steamDemo, camp, "card-demo"), t.demo_cta, "steam-badge", "data-demo-only")}
+            ${steamBtn(t, utm(SITE.steamStore, camp, "card-wishlist"), t.wishlist_cta, "steam-badge")}
+          </div>
+          <a class="game-cover game-cover-link" href="${esc(utm(SITE.steamDemo, camp, "card-cover"))}" target="_blank" rel="noopener" aria-label="${esc(t.demo_cover + t.newTab)}" data-after-demo-href="${esc(utm(SITE.steamStore, camp, "card-cover"))}" data-after-demo-label="${esc(t.store_cover + t.newTab)}">
+            <span class="tape tape-bottom">${t.tag_players}</span>
+            <picture>
+              <source media="(max-width: 900px)" type="image/webp" srcset="${ctx.asset("/images/TrashParty-mobile.webp")}" width="748" height="896">
+              <source media="(max-width: 900px)" srcset="${ctx.asset("/images/TrashParty-mobile.jpg")}" width="748" height="896">
+              <source type="image/webp" srcset="${ctx.asset("/images/TrashParty-960.webp")} 960w, ${ctx.asset("/images/TrashParty.webp")} 1920w" sizes="(max-width: 1440px) 100vw, 1400px">
+              <img class="game-art" src="${ctx.asset("/images/TrashParty.jpg")}" width="1920" height="622" loading="lazy" decoding="async" alt="${esc(tp[lang].alt)}">
+            </picture>
+          </a>
+        </div>
+        <div class="game-body">
+          <div class="game-info">
+            <h3><a href="${gamePath(lang, tp.slug)}">${tp.name}</a></h3>
+            <span class="genre">${tp[lang].genre}</span>
+          </div>
+          <p class="game-desc">${tp[lang].card}</p>
+          ${learn(tp)}
+        </div>
+      </div>
+
+      <!-- TRASH CORP. -->
+      ${wipCard(tc, `<picture>
+            <source type="image/webp" srcset="${ctx.asset("/images/TrashCorp.webp")}">
+            <img class="game-art" src="${ctx.asset("/images/TrashCorp.jpg")}" width="1024" height="560" loading="lazy" decoding="async" alt="${esc(tc[lang].alt)}">
+          </picture>`)}
+
+      <!-- TRASH BLOOD -->
+      ${wipCard(tb, `<picture>
+            <source type="image/webp" srcset="${ctx.asset("/images/TrashBlood-960.webp")} 960w, ${ctx.asset("/images/TrashBlood.webp")} 1920w" sizes="(max-width: 900px) 100vw, 700px">
+            <img class="game-art" src="${ctx.asset("/images/TrashBlood.jpg")}" width="1920" height="1080" loading="lazy" decoding="async" alt="${esc(tb[lang].alt)}">
+          </picture>`)}
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="contact" id="contact" aria-labelledby="contact-h">
+  <img class="contact-bg" src="${ctx.asset("/images/banner-bg.svg")}" loading="lazy" alt="">
+  <div class="contact-wrap">
+    <h2 class="reveal-title" id="contact-h">${t.contact_title}</h2>
+    <p>${t.contact_body}</p>
+    <a class="contact-mail scale-in" href="mailto:${SITE.email}">
+      <img src="${ctx.asset("/images/icon-mail.svg")}" alt="" width="24" height="24">
+      ${SITE.email}
+    </a>
+  </div>
+</section>`;
+
+  return layout(ctx, {
+    lang, isHome: true,
+    path: homePath(lang),
+    alternates: { en: homePath("en"), pt: homePath("pt") },
+    title: t.home_title,
+    desc: ctx.demoLive ? t.home_desc_demo : t.home_desc,
+    og: {
+      title: ctx.demoLive ? t.home_og_title_demo : t.home_og_title,
+      desc: ctx.demoLive ? t.home_desc_demo : t.home_desc,
+      image: "/images/og-image.jpg",
+      alt: t.og_alt,
+    },
+    jsonld: {
+      "@context": "https://schema.org",
+      "@graph": [
+        studioLd(),
+        { "@type": "WebSite", "@id": `${SITE.url}/#website`, url: `${SITE.url}/`, name: SITE.name,
+          inLanguage: ["en", "pt-BR"], publisher: { "@id": STUDIO_ID } },
+        ...GAMES.map((g) => gameLd(g, lang)),
+      ],
+    },
+    body,
+  });
+}
+
+// ---------- game page ----------
+export function game(ctx, lang, g) {
+  const t = T[lang], c = g[lang];
+  const camp = `game-${g.slug}`;
+  const home = homePath(lang);
+  const others = GAMES.filter((x) => x.slug !== g.slug);
+
+  const ctas = g.status === "demo"
+    ? `${steamBtn(t, utm(SITE.steamStore, camp, "hero-wishlist"), t.wishlist_cta, "btn btn-primary")}
+        ${steamBtn(t, utm(SITE.steamDemo, camp, "hero-demo"), t.demo_cta, "btn btn-ghost", "data-demo-only")}`
+    : `${steamBtn(t, utm(SITE.steamDeveloper, camp, "hero-follow"), t.follow_steam, "btn btn-primary")}
+        ${ext(t, SITE.instagram, `${INSTA_ICON}<span>${t.follow_insta}</span>`, `class="btn btn-ghost"`)}`;
+
+  const tape = g.status === "demo"
+    ? `<span class="g-tape">${c.tape}</span>`
+    : `<span class="g-tape g-tape-wip"><span class="wip-dot" aria-hidden="true"></span>${c.tape}</span>`;
+
+  const media = g.trailer ? `
+<!-- ============ TRAILER + SCREENSHOTS ============ -->
+<section class="g-media" aria-labelledby="trailer-h">
+  <div class="about-wrap">
+    <div class="section-head">
+      <div><h2 class="reveal-title" id="trailer-h">${t.sec_trailer}</h2></div>
+    </div>
+    <div class="g-video">
+      <video controls preload="none" playsinline poster="${ctx.asset(g.trailer.poster)}" aria-label="${esc(t.trailer_label)}">
+        <source src="${ctx.asset(g.trailer.src)}" type="video/mp4">
+      </video>
+    </div>
+
+    <div class="section-head g-shots-head">
+      <div><h2 class="reveal-title" id="shots-h">${t.sec_shots}</h2></div>
+    </div>
+    <ul class="g-shots" data-close="${esc(t.shot_close)}" data-prev="${esc(t.shot_prev)}" data-next="${esc(t.shot_next)}">
+      ${c.shotAlts.map((alt, i) => {
+        const n = String(i + 1).padStart(2, "0");
+        const base = `/images/games/${g.slug}/shots/${n}`;
+        return `<li><a class="g-shot" href="${ctx.asset(`${base}-1600.webp`)}" aria-label="${esc(`${t.shot_open}: ${alt}`)}">
+        <img src="${ctx.asset(`${base}-800.webp`)}" srcset="${ctx.asset(`${base}-800.webp`)} 800w, ${ctx.asset(`${base}-1600.webp`)} 1600w" sizes="(max-width: 900px) 50vw, 25vw" width="800" height="450" loading="lazy" decoding="async" alt="${esc(alt)}">
+      </a></li>`;
+      }).join("\n      ")}
+    </ul>
+  </div>
+</section>` : "";
+
+  const cta = g.status === "demo"
+    ? { title: t.cta_tp_title, body: t.cta_tp_body,
+        buttons: `${steamBtn(t, utm(SITE.steamStore, camp, "cta-wishlist"), t.wishlist_cta, "btn btn-ink")}
+      ${steamBtn(t, utm(SITE.steamDemo, camp, "cta-demo"), t.demo_cta, "btn btn-ink-ghost", "data-demo-only")}` }
+    : { title: t.follow_title, body: t.follow_body,
+        buttons: `${steamBtn(t, utm(SITE.steamDeveloper, camp, "cta-follow"), t.follow_steam, "btn btn-ink")}
+      ${ext(t, SITE.instagram, `${INSTA_ICON}<span>${t.follow_insta}</span>`, `class="btn btn-ink-ghost"`)}` };
+
+  const miniCard = (o) => `<div class="game-card">
+        <a class="game-cover game-cover-link" href="${gamePath(lang, o.slug)}" tabindex="-1" aria-hidden="true">
+          ${o.status === "wip" ? WIP(t) : `<span class="tape tape-bottom">${t.tag_players}</span>`}
+          ${keyArtPicture(ctx, o, lang, { sizes: "(max-width: 900px) 100vw, 700px", cls: "game-art" })}
+        </a>
+        <div class="game-body">
+          <div class="game-info">
+            <h3><a href="${gamePath(lang, o.slug)}">${o.name}</a></h3>
+            <span class="genre">${o[lang].genre}</span>
+          </div>
+          <p class="game-desc">${o[lang].tagline}</p>
+          <a class="game-more" href="${gamePath(lang, o.slug)}">${t.learn_more}<span class="sr-only">${t.learn_more_about}${o.name}</span> <span aria-hidden="true">→</span></a>
+        </div>
+      </div>`;
+
+  const body = `<!-- ============ GAME HERO ============ -->
+<header class="g-hero">
+  ${CANYON_BG}
+  <div class="g-hero-wrap">
+    <div class="g-hero-text">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <ol>
+          <li><a href="${home}">${t.crumb_home}</a></li>
+          <li><a href="${home}#games">${t.crumb_games}</a></li>
+          <li aria-current="page">${g.name}</li>
+        </ol>
+      </nav>
+      ${tape}
+      <h1 class="g-title">${g.name}</h1>
+      <p class="g-tagline">${c.tagline}</p>
+      <div class="g-ctas">
+        ${ctas}
+      </div>
+    </div>
+    <div class="g-art">
+      ${keyArtPicture(ctx, g, lang, { sizes: "(max-width: 900px) 100vw, 50vw", eager: true })}
+    </div>
+  </div>
+  <div class="g-facts-wrap">
+    <h2 class="sr-only">${t.facts_label}</h2>
+    <dl class="g-facts">
+      ${c.facts.map(([k, v]) => `<div><dt>${t[k]}</dt><dd>${v}</dd></div>`).join("\n      ")}
+    </dl>
+  </div>
+</header>
+
+<!-- ============ ABOUT THE GAME ============ -->
+<section class="about g-about" aria-labelledby="about-game-h">
+  <div class="about-wrap">
+    <div class="section-head">
+      <div><h2 class="reveal-title" id="about-game-h">${t.sec_about}</h2></div>
+      <div class="side">${c.genre}</div>
+    </div>
+    <div class="g-about-grid">
+      <p class="about-lead">${c.lead}</p>
+      <div class="g-about-body">
+        ${c.body.map((p) => `<p>${p}</p>`).join("\n        ")}
+      </div>
+    </div>
+
+    <h2 class="g-sub" id="features-h">${t.sec_features}</h2>
+    <div class="about-cols g-features">
+      ${c.features.map(([h, p], i) => `<div class="value-card">
+        <span class="g-num" aria-hidden="true">${String(i + 1).padStart(2, "0")}</span>
+        <h3>${h}</h3>
+        <p>${p}</p>
+      </div>`).join("\n      ")}
+    </div>
+  </div>
+</section>
+${media}
+
+<!-- ============ CALL TO ACTION ============ -->
+<section class="manifesto g-cta" aria-labelledby="cta-h">
+  <div class="manifesto-wrap">
+    <h2 class="reveal-title" id="cta-h">${cta.title}</h2>
+    <p>${cta.body}</p>
+    <div class="g-ctas g-ctas-center">
+      ${cta.buttons}
+    </div>
+  </div>
+  ${marquee(Array(4).fill(g.name.toUpperCase()))}
+</section>
+
+<!-- ============ MORE GAMES ============ -->
+<section class="games g-more" aria-labelledby="more-h">
+  <div class="about-wrap">
+    <div class="section-head">
+      <div><h2 class="reveal-title" id="more-h">${t.sec_more}</h2></div>
+    </div>
+    <div class="games-grid">
+      ${others.map(miniCard).join("\n      ")}
+    </div>
+  </div>
+</section>`;
+
+  return layout(ctx, {
+    lang,
+    path: gamePath(lang, g.slug),
+    alternates: { en: gamePath("en", g.slug), pt: gamePath("pt", g.slug) },
+    title: c.title,
+    desc: c.desc,
+    og: { title: c.title, desc: c.desc, image: `/images/games/${g.slug}/og.jpg`, alt: c.alt },
+    jsonld: {
+      "@context": "https://schema.org",
+      "@graph": [
+        gameLd(g, lang),
+        { "@type": "BreadcrumbList", itemListElement: [
+          { "@type": "ListItem", position: 1, name: t.crumb_home, item: abs(home) },
+          { "@type": "ListItem", position: 2, name: t.crumb_games, item: abs(`${home}#games`) },
+          { "@type": "ListItem", position: 3, name: g.name, item: abs(gamePath(lang, g.slug)) },
+        ] },
+        { "@type": "Organization", "@id": STUDIO_ID, name: SITE.name, url: `${SITE.url}/` },
+      ],
+    },
+    bodyClass: "page-game",
+    scripts: g.trailer ? `\n<script src="${ctx.asset("/js/gallery.js")}"></script>` : "",
+    body,
+  });
+}
+
+// ---------- 404 ----------
+export function notFound(ctx) {
+  const en = T.en, pt = T.pt;
+  const body = `<header class="hero nf">
+  ${CANYON_BG}
+  <div class="nf-wrap">
+    <div class="eyebrow">404</div>
+    <h1 class="reveal-title">${en.nf_heading}</h1>
+    <p class="tag">${en.nf_body}<br/><span lang="pt-BR">${pt.nf_body}</span></p>
+    <div class="g-ctas">
+      <a class="btn btn-primary" href="/">${en.nf_back}</a>
+      <a class="btn btn-ghost" href="/pt/" lang="pt-BR">${pt.nf_back}</a>
+    </div>
+  </div>
+</header>`;
+  return layout(ctx, { lang: "en", path: "/404", title: en.nf_title, desc: en.nf_body, noindex: true, body });
+}
+
+export { plain };

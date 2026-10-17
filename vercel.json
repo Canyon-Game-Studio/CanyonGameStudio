@@ -1,0 +1,121 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": true,
+  "redirects": [
+    {
+      "source": "/demo",
+      "destination": "https://store.steampowered.com/app/5394270/Trash_Party_Demo/?utm_source=canyongamestudio&utm_medium=website&utm_campaign=shortlink&utm_content=demo",
+      "permanent": false
+    },
+    {
+      "source": "/demo/",
+      "destination": "https://store.steampowered.com/app/5394270/Trash_Party_Demo/?utm_source=canyongamestudio&utm_medium=website&utm_campaign=shortlink&utm_content=demo",
+      "permanent": false
+    },
+    {
+      "source": "/wishlist",
+      "destination": "https://store.steampowered.com/app/3591370/Trash_Party/?utm_source=canyongamestudio&utm_medium=website&utm_campaign=shortlink&utm_content=wishlist",
+      "permanent": false
+    },
+    {
+      "source": "/wishlist/",
+      "destination": "https://store.steampowered.com/app/3591370/Trash_Party/?utm_source=canyongamestudio&utm_medium=website&utm_campaign=shortlink&utm_content=wishlist",
+      "permanent": false
+    },
+    {
+      "source": "/steam",
+      "destination": "https://store.steampowered.com/developer/canyongamestudio?utm_source=canyongamestudio&utm_medium=website&utm_campaign=shortlink&utm_content=steam",
+      "permanent": false
+    },
+    {
+      "source": "/steam/",
+      "destination": "https://store.steampowered.com/developer/canyongamestudio?utm_source=canyongamestudio&utm_medium=website&utm_campaign=shortlink&utm_content=steam",
+      "permanent": false
+    },
+    {
+      "source": "/instagram",
+      "destination": "https://www.instagram.com/canyongamestudio/",
+      "permanent": false
+    },
+    {
+      "source": "/instagram/",
+      "destination": "https://www.instagram.com/canyongamestudio/",
+      "permanent": false
+    },
+    {
+      "source": "/trashparty",
+      "destination": "/trash-party/",
+      "permanent": true
+    },
+    {
+      "source": "/trashparty/",
+      "destination": "/trash-party/",
+      "permanent": true
+    },
+    {
+      "source": "/trashcorp",
+      "destination": "/trash-corp/",
+      "permanent": true
+    },
+    {
+      "source": "/trashcorp/",
+      "destination": "/trash-corp/",
+      "permanent": true
+    },
+    {
+      "source": "/trashblood",
+      "destination": "/trash-blood/",
+      "permanent": true
+    },
+    {
+      "source": "/trashblood/",
+      "destination": "/trash-blood/",
+      "permanent": true
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' 'sha256-CxorSMDnio/Dm3Qk+cpe+PiZdTUWER/8szP1F1F8sK0='; style-src 'self'; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+        }
+      ]
+    },
+    {
+      "source": "/(css|js|fonts)/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/(images|media)/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=2592000, stale-while-revalidate=86400"
+        }
+      ]
+    }
+  ]
+}
