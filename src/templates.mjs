@@ -218,7 +218,7 @@ function gameLd(g, lang) {
       description: c.tagline,
       thumbnailUrl: abs(`/images/games/${g.slug}/og.jpg`),
       contentUrl: abs(g.trailer.src),
-      uploadDate: "2026-10-16",
+      uploadDate: "2026-10-16T12:00:00-03:00",
       duration: "PT31S",
     };
   }
