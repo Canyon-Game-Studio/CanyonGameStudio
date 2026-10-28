@@ -2,7 +2,7 @@
 // Page templates. Each function returns a full HTML string.
 // `ctx` comes from tools/build.mjs: { asset(path) -> path?v=hash, demoLive, today }
 // ============================================================================
-import { SITE, LANGS, T, GAMES, utm } from "./content.mjs";
+import { SITE, LANGS, T, GAMES, PRIVACY, utm } from "./content.mjs";
 
 // ---------- helpers ----------
 const esc = (s) => String(s)
@@ -519,7 +519,10 @@ export function game(ctx, lang, g) {
         <h3>${h}</h3>
         <p>${p}</p>
       </div>`).join("\n      ")}
-    </div>
+    </div>${PRIVACY.some((p) => p.slug === g.slug) ? `
+    <div class="g-legal">
+      <a class="btn btn-ink-ghost" href="${privacyPath(g.slug)}"${lang === "en" ? "" : ` hreflang="en"`}>${t.privacy_cta}</a>
+    </div>` : ""}
   </div>
 </section>
 ${media}
@@ -573,7 +576,7 @@ ${media}
   });
 }
 
-// ---------- privacy policy (for store listings; not linked from the site) ----------
+// ---------- privacy policy (for store listings; linked from the game page) ----------
 export const privacyPath = (slug) => `/${slug}/privacy/`;
 
 export function privacy(ctx, p) {

@@ -46,7 +46,7 @@ for (const g of GAMES) {
   for (const lang of Object.keys(LANGS)) write(out(gamePath(lang, g.slug)), game(ctx, lang, g));
   urls.push({ en: gamePath("en", g.slug), pt: gamePath("pt", g.slug) });
 }
-// Privacy policies: only linked from the store listings, so not in the sitemap.
+// Privacy policies: for the store listings, so not in the sitemap.
 for (const p of PRIVACY) write(out(privacyPath(p.slug)), privacy(ctx, p));
 write("404.html", notFound(ctx));
 

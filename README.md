@@ -28,7 +28,7 @@ O build também:
 |---|---|
 | `/` e `/pt/` | Home (EN / PT) |
 | `/trash-party/`, `/trash-corp/`, `/trashblood/` | Páginas dos jogos (e as versões em `/pt/...`) |
-| `/trash-party/privacy/` | Política de privacidade (link da Google Play). Sem link no site e fora do sitemap; texto em `PRIVACY` no `src/content.mjs` |
+| `/trash-party/privacy/` | Política de privacidade (link da Google Play). Botão na seção "The Game" da página do jogo; fora do sitemap. Texto em `PRIVACY` no `src/content.mjs` |
 
 Links curtos (bio do Instagram, posts): `/demo`, `/wishlist`, `/steam`, `/instagram`.
 

@@ -89,6 +89,7 @@ export const T = {
     follow_title: "FOLLOW THE<br/>DEVELOPMENT.",
     follow_body: "We share progress, art and behind-the-scenes on Instagram and on our Steam page.",
     follow_steam: "Follow on Steam", follow_insta: "Instagram",
+    privacy_cta: "Privacy Policy",
 
     nf_title: "Page not found | Canyon Game Studio",
     nf_heading: "LOST IN THE<br/>CANYONS.",
@@ -152,6 +153,7 @@ export const T = {
     follow_title: "ACOMPANHE O<br/>DESENVOLVIMENTO.",
     follow_body: "Mostramos progresso, arte e bastidores no Instagram e na nossa página da Steam.",
     follow_steam: "Seguir na Steam", follow_insta: "Instagram",
+    privacy_cta: "Política de Privacidade",
 
     nf_title: "Página não encontrada | Canyon Game Studio",
     nf_heading: "PERDIDO NOS<br/>CANYONS.",
@@ -391,7 +393,7 @@ export const GAMES = [
 
 // ---------------------------------------------------------------------------
 // Privacy policies for app store listings (Google Play). Published at
-// /<slug>/privacy/ and not linked from the site. English, with a PT summary.
+// /<slug>/privacy/, linked from the game page. English, with a PT summary.
 // ---------------------------------------------------------------------------
 export const PRIVACY = [
   {
