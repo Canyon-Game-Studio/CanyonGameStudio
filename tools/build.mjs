@@ -8,8 +8,8 @@ import { createHash } from "node:crypto";
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { SITE, LANGS, GAMES, utm } from "../src/content.mjs";
-import { home, game, notFound, homePath, gamePath, HEAD_SCRIPT } from "../src/templates.mjs";
+import { SITE, LANGS, GAMES, PRIVACY, utm } from "../src/content.mjs";
+import { home, game, privacy, notFound, homePath, gamePath, privacyPath, HEAD_SCRIPT } from "../src/templates.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const now = Date.now();
@@ -46,6 +46,8 @@ for (const g of GAMES) {
   for (const lang of Object.keys(LANGS)) write(out(gamePath(lang, g.slug)), game(ctx, lang, g));
   urls.push({ en: gamePath("en", g.slug), pt: gamePath("pt", g.slug) });
 }
+// Privacy policies: only linked from the store listings, so not in the sitemap.
+for (const p of PRIVACY) write(out(privacyPath(p.slug)), privacy(ctx, p));
 write("404.html", notFound(ctx));
 
 // ---------- sitemap (with hreflang alternates) ----------

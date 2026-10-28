@@ -22,12 +22,12 @@
   "redirects": [
     {
       "source": "/demo",
-      "destination": "https://store.steampowered.com/app/5394270/Trash_Party_Demo/?utm_source=canyongamestudio&utm_medium=website&utm_campaign=shortlink&utm_content=demo",
+      "destination": "https://store.steampowered.com/app/3591370/Trash_Party/?utm_source=canyongamestudio&utm_medium=website&utm_campaign=shortlink&utm_content=demo",
       "permanent": false
     },
     {
       "source": "/demo/",
-      "destination": "https://store.steampowered.com/app/5394270/Trash_Party_Demo/?utm_source=canyongamestudio&utm_medium=website&utm_campaign=shortlink&utm_content=demo",
+      "destination": "https://store.steampowered.com/app/3591370/Trash_Party/?utm_source=canyongamestudio&utm_medium=website&utm_campaign=shortlink&utm_content=demo",
       "permanent": false
     },
     {

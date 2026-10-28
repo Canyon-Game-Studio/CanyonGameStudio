@@ -388,3 +388,40 @@ export const GAMES = [
     },
   },
 ];
+
+// ---------------------------------------------------------------------------
+// Privacy policies for app store listings (Google Play). Published at
+// /<slug>/privacy/ and not linked from the site. English, with a PT summary.
+// ---------------------------------------------------------------------------
+export const PRIVACY = [
+  {
+    slug: "trash-party",
+    effective: "October 28, 2026",
+    summary: [
+      "Trash Party does not collect, store or share any personal information.",
+      "There are no ads, no analytics, no accounts and no in-app purchases.",
+      "Game progress and settings stay on your device.",
+    ],
+    sections: [
+      ["Information we collect", [
+        "Trash Party (the \"Game\"), developed by Canyon Game Studio, does not collect any personal or device information. The Game has no sign-in, does not ask for your name, email, location, contacts, photos or other data, and does not use advertising identifiers.",
+      ]],
+      ["Data stored on your device", [
+        "The Game may save progress and settings (for example, sound volume) locally on your device so you can continue where you left off. This data never leaves your device and is deleted when you uninstall the Game.",
+      ]],
+      ["Third-party services", [
+        "The Game does not include third-party advertising, analytics or tracking SDKs. The Game is distributed through Google Play, which may process data under <a href=\"https://policies.google.com/privacy\">Google's Privacy Policy</a> when you download or update apps.",
+      ]],
+      ["Children's privacy", [
+        "The Game is designed to be suitable for children and follows the Google Play Families Policy. Because we do not collect personal information from anyone, we do not knowingly collect personal information from children under 13, in line with the Children's Online Privacy Protection Act (COPPA) and the General Data Protection Regulation (GDPR).",
+      ]],
+      ["Changes to this policy", [
+        "If we change this policy, we will update this page and the effective date above.",
+      ]],
+      ["Contact", [
+        `If you have questions about this policy, contact us at <a href="mailto:${SITE.email}">${SITE.email}</a>.`,
+      ]],
+    ],
+    pt: `O Trash Party não coleta, armazena nem compartilha dados pessoais. O jogo não tem anúncios, analytics, contas nem compras no app. O progresso fica salvo apenas no seu aparelho e é apagado quando você desinstala o jogo. O jogo segue a Política de Famílias do Google Play e é adequado para crianças. Em caso de dúvidas, escreva para <a href="mailto:${SITE.email}">${SITE.email}</a>.`,
+  },
+];

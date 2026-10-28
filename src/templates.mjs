@@ -573,6 +573,50 @@ ${media}
   });
 }
 
+// ---------- privacy policy (for store listings; not linked from the site) ----------
+export const privacyPath = (slug) => `/${slug}/privacy/`;
+
+export function privacy(ctx, p) {
+  const g = GAMES.find((x) => x.slug === p.slug);
+  const body = `<header class="g-hero legal-hero">
+  ${CANYON_BG}
+  <div class="legal-wrap">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="/">Home</a></li>
+        <li><a href="${gamePath("en", g.slug)}">${g.name}</a></li>
+        <li aria-current="page">Privacy Policy</li>
+      </ol>
+    </nav>
+    <span class="g-tape">${g.name}</span>
+    <h1 class="g-title">Privacy<br/>Policy</h1>
+    <p class="legal-meta">Developer: ${SITE.name} · Effective date: ${p.effective}</p>
+  </div>
+</header>
+
+<section class="about legal">
+  <div class="legal-wrap">
+    <h2>Summary</h2>
+    <ul>
+      ${p.summary.map((s) => `<li>${s}</li>`).join("\n      ")}
+    </ul>
+    ${p.sections.map(([h, ps]) => `<h2>${h}</h2>
+    ${ps.map((x) => `<p>${x}</p>`).join("\n    ")}`).join("\n    ")}
+    <div class="legal-pt" lang="pt-BR">
+      <h2>Resumo em português</h2>
+      <p>${p.pt}</p>
+    </div>
+  </div>
+</section>`;
+  return layout(ctx, {
+    lang: "en",
+    path: privacyPath(p.slug),
+    title: `${g.name} Privacy Policy | ${SITE.name}`,
+    desc: `Privacy policy for ${g.name} by ${SITE.name}. ${p.summary[0]}`,
+    body,
+  });
+}
+
 // ---------- 404 ----------
 export function notFound(ctx) {
   const en = T.en, pt = T.pt;
