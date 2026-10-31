@@ -392,27 +392,31 @@ export const GAMES = [
 ];
 
 // ---------------------------------------------------------------------------
-// Privacy policies for app store listings (Google Play). Published at
+// Privacy policies for app store listings (Google Play, App Store). Published at
 // /<slug>/privacy/, linked from the game page. English, with a PT summary.
 // ---------------------------------------------------------------------------
 export const PRIVACY = [
   {
     slug: "trash-party",
-    effective: "October 28, 2026",
+    effective: "October 31, 2026",
     summary: [
-      "Trash Party does not collect, store or share any personal information.",
+      "Canyon Game Studio does not collect or store any personal information from Trash Party.",
       "There are no ads, no analytics, no accounts and no in-app purchases.",
+      "Online rooms run through Photon, and your player name is shown to the other players in the room.",
       "Game progress and settings stay on your device.",
     ],
     sections: [
       ["Information we collect", [
-        "Trash Party (the \"Game\"), developed by Canyon Game Studio, does not collect any personal or device information. The Game has no sign-in, does not ask for your name, email, location, contacts, photos or other data, and does not use advertising identifiers.",
+        "Canyon Game Studio does not collect personal or device information through Trash Party (the \"Game\"). The Game has no sign-in, does not ask for your email, location, contacts, photos or other data, and does not use advertising identifiers.",
+      ]],
+      ["Online play", [
+        "To create or join an online room, the Game connects to servers run by Photon Engine (Exit Games). Those servers use your IP address and connection data to link players during the session. The player name you choose, or your Steam name if you play on Steam, is shared with the other players in the room. We do not receive or keep this data.",
       ]],
       ["Data stored on your device", [
         "The Game may save progress and settings (for example, sound volume) locally on your device so you can continue where you left off. This data never leaves your device and is deleted when you uninstall the Game.",
       ]],
       ["Third-party services", [
-        "The Game does not include third-party advertising, analytics or tracking SDKs. The Game is distributed through Google Play, which may process data under <a href=\"https://policies.google.com/privacy\">Google's Privacy Policy</a> when you download or update apps.",
+        "The Game does not include third-party advertising, analytics or tracking SDKs. The Game is distributed through Google Play, the Apple App Store and Steam, which may process data under <a href=\"https://policies.google.com/privacy\">Google's Privacy Policy</a>, <a href=\"https://www.apple.com/legal/privacy/\">Apple's Privacy Policy</a> and <a href=\"https://store.steampowered.com/privacy_agreement/\">Valve's Privacy Policy</a> when you download or update the Game.",
       ]],
       ["Children's privacy", [
         "The Game is designed to be suitable for children and follows the Google Play Families Policy. Because we do not collect personal information from anyone, we do not knowingly collect personal information from children under 13, in line with the Children's Online Privacy Protection Act (COPPA) and the General Data Protection Regulation (GDPR).",
@@ -424,6 +428,6 @@ export const PRIVACY = [
         `If you have questions about this policy, contact us at <a href="mailto:${SITE.email}">${SITE.email}</a>.`,
       ]],
     ],
-    pt: `O Trash Party não coleta, armazena nem compartilha dados pessoais. O jogo não tem anúncios, analytics, contas nem compras no app. O progresso fica salvo apenas no seu aparelho e é apagado quando você desinstala o jogo. O jogo segue a Política de Famílias do Google Play e é adequado para crianças. Em caso de dúvidas, escreva para <a href="mailto:${SITE.email}">${SITE.email}</a>.`,
+    pt: `A Canyon Game Studio não coleta nem armazena dados pessoais pelo Trash Party. O jogo não tem anúncios, analytics, contas nem compras no app. As salas online passam pelos servidores do Photon, que usam seu IP e dados de conexão durante a partida, e o nome de jogador aparece para quem está na sala. O progresso fica salvo apenas no seu aparelho e é apagado quando você desinstala o jogo. O jogo segue a Política de Famílias do Google Play e é adequado para crianças. Em caso de dúvidas, escreva para <a href="mailto:${SITE.email}">${SITE.email}</a>.`,
   },
 ];
