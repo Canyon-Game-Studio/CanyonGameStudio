@@ -106,6 +106,9 @@ const aliases = [
   ["/trashparty", "/trash-party/"], ["/trashcorp", "/trash-corp/"],
   // TrashBlood is one word: the page moved from /trash-blood/ on 17 Oct 2026
   ["/trash-blood", "/trashblood/"], ["/pt/trash-blood", "/pt/trashblood/"],
+  // Common spellings of the newer games
+  ["/trashnights", "/trash-nights/"], ["/trash-night", "/trash-nights/"], ["/pt/trash-night", "/pt/trash-nights/"],
+  ["/trash-caves", "/trashcaves/"], ["/pt/trash-caves", "/pt/trashcaves/"],
 ];
 const both = (src) => [src, `${src}/`];
 

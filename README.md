@@ -15,7 +15,7 @@ node tools/build.mjs
 
 Para ver o site no seu PC, rode `node tools/serve.mjs` e abra http://localhost:8080. Abrir o `index.html` direto do disco não carrega o CSS, porque as páginas usam caminhos a partir da raiz (`/css/...`).
 
-Não edite `index.html`, `pt/`, `trash-party/`, `trash-corp/`, `trashblood/`, `404.html`, `sitemap.xml`, `site.webmanifest` ou `vercel.json` à mão: o build sobrescreve.
+Não edite `index.html`, `pt/`, `trash-party/`, `trash-corp/`, `trashblood/`, `trash-nights/`, `trashcaves/`, `404.html`, `sitemap.xml`, `site.webmanifest` ou `vercel.json` à mão: o build sobrescreve.
 
 O build também:
 - coloca `?v=<hash>` em CSS, JS e imagens (cache longo seguro);
@@ -27,14 +27,16 @@ O build também:
 | URL | Página |
 |---|---|
 | `/` e `/pt/` | Home (EN / PT) |
-| `/trash-party/`, `/trash-corp/`, `/trashblood/` | Páginas dos jogos (e as versões em `/pt/...`) |
+| `/trash-party/`, `/trash-corp/`, `/trashblood/`, `/trash-nights/`, `/trashcaves/` | Páginas dos jogos (e as versões em `/pt/...`) |
 | `/trash-party/privacy/` | Política de privacidade (link da Google Play e da App Store). Botão na seção "The Game" da página do jogo; fora do sitemap. Texto em `PRIVACY` no `src/content.mjs` |
 
 Links curtos (bio do Instagram, posts): `/demo`, `/wishlist`, `/steam`, `/instagram`.
 
 ## Jogo novo
 
-Adicione um item em `GAMES` (`src/content.mjs`), coloque as imagens em `images/games/<slug>/` (`key-art-800.webp`, `key-art-1600.webp`, `key-art.jpg`, `og.jpg` 1200×630) e rode o build.
+Adicione um item em `GAMES` (`src/content.mjs`), coloque as imagens em `images/games/<slug>/` (`key-art-800.webp`, `key-art-1600.webp`, `key-art.jpg`, `og.jpg` 1200×630) e rode o build. Ele entra sozinho na home (a partir do quarto jogo, um card por jogo), no rodapé e no sitemap.
+
+Capturas de tela são opcionais: liste os textos alternativos em `shotAlts` (EN e PT, na mesma ordem) e coloque os arquivos em `images/games/<slug>/shots/` como `01-800.webp`, `01-1600.webp`, `02-...` (16:9). Trailer também é opcional (`trailer`).
 
 ## Métricas
 

@@ -240,7 +240,7 @@ function keyArtPicture(ctx, g, lang, { sizes, eager = false, cls = "" }) {
 // ---------- home ----------
 export function home(ctx, lang) {
   const t = T[lang];
-  const [tp, tc, tb] = GAMES;
+  const [tp, tc, tb, ...rest] = GAMES;
   const camp = "home";
   const learn = (g) => `<a class="game-more" href="${gamePath(lang, g.slug)}">${t.learn_more}<span class="sr-only">${t.learn_more_about}${g.name}</span> <span aria-hidden="true">→</span></a>`;
 
@@ -304,7 +304,7 @@ export function home(ctx, lang) {
     <h2 class="reveal-title" id="manifesto-h">${t.manifesto_title}</h2>
     <p>${t.manifesto_body}</p>
   </div>
-  ${marquee(["CANYON GAME STUDIO", "TRASH PARTY", "TRASH CORP.", "TRASHBLOOD"])}
+  ${marquee(["CANYON GAME STUDIO", ...GAMES.map((g) => g.name.toUpperCase())])}
 </section>
 
 <!-- ============ GAMES ============ -->
@@ -356,6 +356,9 @@ export function home(ctx, lang) {
             <source type="image/webp" srcset="${ctx.asset("/images/TrashBlood-960.webp")} 960w, ${ctx.asset("/images/TrashBlood.webp")} 1920w" sizes="(max-width: 900px) 100vw, 700px">
             <img class="game-art" src="${ctx.asset("/images/TrashBlood.jpg")}" width="1920" height="1080" loading="lazy" decoding="async" alt="${esc(tb[lang].alt)}">
           </picture>`)}
+
+      <!-- NEWER GAMES: one card each, from images/games/<slug>/ -->
+      ${rest.map((g) => wipCard(g, keyArtPicture(ctx, g, lang, { sizes: "(max-width: 900px) 100vw, 700px", cls: "game-art" }))).join("\n\n      ")}
 
     </div>
   </div>
@@ -416,10 +419,9 @@ export function game(ctx, lang, g) {
     ? `<span class="g-tape">${c.tape}</span>`
     : `<span class="g-tape g-tape-wip"><span class="wip-dot" aria-hidden="true"></span>${c.tape}</span>`;
 
-  const media = g.trailer ? `
-<!-- ============ TRAILER + SCREENSHOTS ============ -->
-<section class="g-media" aria-labelledby="trailer-h">
-  <div class="about-wrap">
+  // Trailer and screenshots are both optional: a game may have only screenshots.
+  const hasShots = !!(c.shotAlts && c.shotAlts.length);
+  const trailer = g.trailer ? `
     <div class="section-head">
       <div><h2 class="reveal-title" id="trailer-h">${t.sec_trailer}</h2></div>
     </div>
@@ -428,8 +430,12 @@ export function game(ctx, lang, g) {
         <source src="${ctx.asset(g.trailer.src)}" type="video/mp4">
       </video>
     </div>
-
-    <div class="section-head g-shots-head">
+` : "";
+  const media = g.trailer || hasShots ? `
+<!-- ============ TRAILER + SCREENSHOTS ============ -->
+<section class="g-media" aria-labelledby="${g.trailer ? "trailer-h" : "shots-h"}">
+  <div class="about-wrap">${trailer}${hasShots ? `
+    <div class="section-head${g.trailer ? " g-shots-head" : ""}">
       <div><h2 class="reveal-title" id="shots-h">${t.sec_shots}</h2></div>
     </div>
     <ul class="g-shots" data-close="${esc(t.shot_close)}" data-prev="${esc(t.shot_prev)}" data-next="${esc(t.shot_next)}">
@@ -440,7 +446,7 @@ export function game(ctx, lang, g) {
         <img src="${ctx.asset(`${base}-800.webp`)}" srcset="${ctx.asset(`${base}-800.webp`)} 800w, ${ctx.asset(`${base}-1600.webp`)} 1600w" sizes="(max-width: 900px) 50vw, 25vw" width="800" height="450" loading="lazy" decoding="async" alt="${esc(alt)}">
       </a></li>`;
       }).join("\n      ")}
-    </ul>
+    </ul>` : ""}
   </div>
 </section>` : "";
 
@@ -571,7 +577,7 @@ ${media}
       ],
     },
     bodyClass: "page-game",
-    scripts: g.trailer ? `\n<script src="${ctx.asset("/js/gallery.js")}"></script>` : "",
+    scripts: hasShots ? `\n<script src="${ctx.asset("/js/gallery.js")}"></script>` : "",
     body,
   });
 }

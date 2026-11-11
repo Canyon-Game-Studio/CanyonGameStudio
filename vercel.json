@@ -99,6 +99,56 @@
       "source": "/pt/trash-blood/",
       "destination": "/pt/trashblood/",
       "permanent": true
+    },
+    {
+      "source": "/trashnights",
+      "destination": "/trash-nights/",
+      "permanent": true
+    },
+    {
+      "source": "/trashnights/",
+      "destination": "/trash-nights/",
+      "permanent": true
+    },
+    {
+      "source": "/trash-night",
+      "destination": "/trash-nights/",
+      "permanent": true
+    },
+    {
+      "source": "/trash-night/",
+      "destination": "/trash-nights/",
+      "permanent": true
+    },
+    {
+      "source": "/pt/trash-night",
+      "destination": "/pt/trash-nights/",
+      "permanent": true
+    },
+    {
+      "source": "/pt/trash-night/",
+      "destination": "/pt/trash-nights/",
+      "permanent": true
+    },
+    {
+      "source": "/trash-caves",
+      "destination": "/trashcaves/",
+      "permanent": true
+    },
+    {
+      "source": "/trash-caves/",
+      "destination": "/trashcaves/",
+      "permanent": true
+    },
+    {
+      "source": "/pt/trash-caves",
+      "destination": "/pt/trashcaves/",
+      "permanent": true
+    },
+    {
+      "source": "/pt/trash-caves/",
+      "destination": "/pt/trashcaves/",
+      "permanent": true
     }
   ],
   "headers": [
