@@ -9,7 +9,7 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE, LANGS, GAMES, PRIVACY, utm } from "../src/content.mjs";
-import { home, game, privacy, notFound, homePath, gamePath, privacyPath, HEAD_SCRIPT } from "../src/templates.mjs";
+import { home, game, play, privacy, notFound, homePath, gamePath, playPath, privacyPath, HEAD_SCRIPT } from "../src/templates.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const now = Date.now();
@@ -46,6 +46,12 @@ for (const g of GAMES) {
   for (const lang of Object.keys(LANGS)) write(out(gamePath(lang, g.slug)), game(ctx, lang, g));
   urls.push({ en: gamePath("en", g.slug), pt: gamePath("pt", g.slug) });
 }
+// Play in Browser: only for games with a hosted WebGL build.
+const playable = GAMES.filter((g) => g.web && g.web.url);
+for (const g of playable) {
+  for (const lang of Object.keys(LANGS)) write(out(playPath(lang, g.slug)), play(ctx, lang, g));
+  urls.push({ en: playPath("en", g.slug), pt: playPath("pt", g.slug) });
+}
 // Privacy policies: for the store listings, so not in the sitemap.
 for (const p of PRIVACY) write(out(privacyPath(p.slug)), privacy(ctx, p));
 write("404.html", notFound(ctx));
@@ -80,7 +86,7 @@ write("site.webmanifest", JSON.stringify({
 
 // ---------- vercel.json ----------
 const scriptHash = createHash("sha256").update(HEAD_SCRIPT).digest("base64");
-const csp = [
+const cspParts = (frameSrc) => [
   "default-src 'self'",
   `script-src 'self' 'sha256-${scriptHash}'`,
   "style-src 'self'",
@@ -92,8 +98,26 @@ const csp = [
   "base-uri 'self'",
   "form-action 'self'",
   "object-src 'none'",
+  ...(frameSrc ? [`frame-src ${frameSrc}`] : []),
   "upgrade-insecure-requests",
 ].join("; ");
+const csp = cspParts();
+const security = (policy) => [
+  { key: "Content-Security-Policy", value: policy },
+  { key: "X-Content-Type-Options", value: "nosniff" },
+  { key: "X-Frame-Options", value: "DENY" },
+  { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+  { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(), payment=(), usb=()" },
+];
+// Play pages frame the game from its own host, so only they allow frame-src
+// (to that origin). The catch-all rule skips them: two rules setting the same
+// header on one path is not something to leave to Vercel's ordering.
+const playRoutes = playable.flatMap((g) => Object.keys(LANGS).map((lang) => ({
+  path: playPath(lang, g.slug), origin: new URL(g.web.url).origin,
+})));
+const notPlay = playRoutes.length
+  ? `/((?!${playRoutes.map((r) => r.path.slice(1)).join("|")}).*)`   // slugs: letters, digits, "-" and "/"
+  : "/(.*)";
 
 // Short links for bios and posts: canyongamestudio.com/demo, /wishlist, /steam
 const shortLinks = [
@@ -132,13 +156,8 @@ write("vercel.json", JSON.stringify({
     ...aliases.flatMap(([src, dest]) => both(src).map((s) => ({ source: s, destination: dest, permanent: true }))),
   ],
   headers: [
-    { source: "/(.*)", headers: [
-      { key: "Content-Security-Policy", value: csp },
-      { key: "X-Content-Type-Options", value: "nosniff" },
-      { key: "X-Frame-Options", value: "DENY" },
-      { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-      { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(), payment=(), usb=()" },
-    ] },
+    { source: notPlay, headers: security(csp) },
+    ...playRoutes.map((r) => ({ source: `${r.path}(.*)`, headers: security(cspParts(r.origin)) })),
     { source: "/(css|js|fonts)/(.*)", headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }] },
     { source: "/(images|media)/(.*)", headers: [{ key: "Cache-Control", value: "public, max-age=2592000, stale-while-revalidate=86400" }] },
   ],

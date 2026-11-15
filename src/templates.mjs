@@ -11,6 +11,7 @@ const plain = (html) => html.replace(/<br\s*\/?>/g, " ").replace(/<[^>]+>/g, "")
 const abs = (path) => SITE.url + path;
 export const homePath = (lang) => `${LANGS[lang].prefix}/`;
 export const gamePath = (lang, slug) => `${LANGS[lang].prefix}/${slug}/`;
+export const playPath = (lang, slug) => `${LANGS[lang].prefix}/${slug}/play/`;
 const other = (lang) => (lang === "en" ? "pt" : "en");
 
 // External link that says it opens a new tab (for screen readers only).
@@ -24,6 +25,10 @@ const CANYON_BG = `<svg class="canyon-bg" viewBox="0 0 1600 500" preserveAspectR
     <path d="M0 400 L150 280 L280 320 L400 200 L540 260 L680 160 L820 220 L960 140 L1100 200 L1240 130 L1400 210 L1600 170 L1600 500 L0 500 Z" fill="#F0660A"/>
     <path d="M0 450 L180 380 L340 410 L500 320 L640 360 L800 260 L960 320 L1120 250 L1280 300 L1440 260 L1600 330 L1600 500 L0 500 Z" fill="#1A3D63" opacity="0.7"/>
   </svg>`;
+const PLAY_ICON = `<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 4.5v15a1 1 0 0 0 1.53.85l12-7.5a1 1 0 0 0 0-1.7l-12-7.5A1 1 0 0 0 7 4.5"/></svg>`;
+// "Play in Browser" button, only for games with a hosted WebGL build.
+const webBtn = (t, lang, g, cls) => g.web && g.web.url
+  ? `<a href="${playPath(lang, g.slug)}" class="${cls}">${PLAY_ICON}<span>${t.web_cta}</span></a>` : "";
 const WIP = (t) => `<span class="wip-badge"><span class="wip-dot" aria-hidden="true"></span><span>${t.wip_badge}</span></span>`;
 
 const marquee = (words) => `<div class="sign-marquee" aria-hidden="true">
@@ -411,7 +416,8 @@ export function game(ctx, lang, g) {
 
   const ctas = g.status === "demo"
     ? `${steamBtn(t, utm(SITE.steamStore, camp, "hero-wishlist"), t.wishlist_cta, "btn btn-primary")}
-        ${steamBtn(t, utm(SITE.steamDemo, camp, "hero-demo"), t.demo_cta, "btn btn-ghost", "data-demo-only")}`
+        ${steamBtn(t, utm(SITE.steamDemo, camp, "hero-demo"), t.demo_cta, "btn btn-ghost", "data-demo-only")}
+        ${webBtn(t, lang, g, "btn btn-ghost")}`
     : `${steamBtn(t, utm(SITE.steamDeveloper, camp, "hero-follow"), t.follow_steam, "btn btn-primary")}
         ${ext(t, SITE.instagram, `${INSTA_ICON}<span>${t.follow_insta}</span>`, `class="btn btn-ghost"`)}`;
 
@@ -453,7 +459,8 @@ export function game(ctx, lang, g) {
   const cta = g.status === "demo"
     ? { title: t.cta_tp_title, body: t.cta_tp_body,
         buttons: `${steamBtn(t, utm(SITE.steamStore, camp, "cta-wishlist"), t.wishlist_cta, "btn btn-ink")}
-      ${steamBtn(t, utm(SITE.steamDemo, camp, "cta-demo"), t.demo_cta, "btn btn-ink-ghost", "data-demo-only")}` }
+      ${steamBtn(t, utm(SITE.steamDemo, camp, "cta-demo"), t.demo_cta, "btn btn-ink-ghost", "data-demo-only")}
+      ${webBtn(t, lang, g, "btn btn-ink-ghost")}` }
     : { title: t.follow_title, body: t.follow_body,
         buttons: `${steamBtn(t, utm(SITE.steamDeveloper, camp, "cta-follow"), t.follow_steam, "btn btn-ink")}
       ${ext(t, SITE.instagram, `${INSTA_ICON}<span>${t.follow_insta}</span>`, `class="btn btn-ink-ghost"`)}` };
@@ -578,6 +585,67 @@ ${media}
     },
     bodyClass: "page-game",
     scripts: hasShots ? `\n<script src="${ctx.asset("/js/gallery.js")}"></script>` : "",
+    body,
+  });
+}
+
+// ---------- play in browser (WebGL build in an iframe, loaded on click) ----------
+export function play(ctx, lang, g) {
+  const t = T[lang];
+  const camp = `game-${g.slug}`;
+  const body = `<header class="g-hero legal-hero play-hero">
+  ${CANYON_BG}
+  <div class="play-wrap">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="${homePath(lang)}">${t.crumb_home}</a></li>
+        <li><a href="${gamePath(lang, g.slug)}">${g.name}</a></li>
+        <li aria-current="page">${t.play_crumb}</li>
+      </ol>
+    </nav>
+    <span class="g-tape">${g.name}</span>
+    <h1 class="g-title">${t.play_h1}</h1>
+    <p class="g-tagline">${t.play_lead}</p>
+  </div>
+</header>
+
+<section class="g-media play" aria-label="${esc(g.name)}">
+  <div class="play-wrap">
+    <div class="g-play" data-play="${esc(g.web.url)}" data-title="${esc(g.name)}">
+      <div class="g-play-cover">
+        <picture>
+          <source type="image/webp" srcset="${ctx.asset(`/images/games/${g.slug}/key-art-1600.webp`)}">
+          <img src="${ctx.asset(`/images/games/${g.slug}/key-art.jpg`)}" alt="" width="1600" height="900" decoding="async">
+        </picture>
+        <div class="g-play-cta">
+          <button type="button" class="btn btn-primary" data-play-start hidden>${PLAY_ICON}<span>${t.play_start}</span></button>
+          <p class="g-play-note">${t.play_size.replace("{size}", g.web.size)}</p>
+          <noscript><p class="g-play-note">${t.play_nojs} <a href="${esc(g.web.url)}">${esc(g.web.url)}</a></p></noscript>
+        </div>
+      </div>
+    </div>
+    <div class="g-play-bar">
+      <button type="button" class="btn btn-ghost" data-play-full hidden><span>${t.play_full}</span></button>
+      ${ext(t, g.web.url, `<span>${t.play_newtab}</span>`, `class="btn btn-ghost"`)}
+      ${steamBtn(t, utm(SITE.steamStore, camp, "play-wishlist"), t.wishlist_cta, "btn btn-ghost")}
+    </div>
+    <h2 class="g-sub play-sub">${t.play_tips_h}</h2>
+    <ul class="play-tips">
+      ${t.play_tips.map((tip) => `<li>${tip}</li>`).join("\n      ")}
+    </ul>
+  </div>
+</section>`;
+
+  return layout(ctx, {
+    lang,
+    path: playPath(lang, g.slug),
+    alternates: { en: playPath("en", g.slug), pt: playPath("pt", g.slug) },
+    title: t.play_title,
+    desc: t.play_desc,
+    og: { title: t.play_title, desc: t.play_desc, image: `/images/games/${g.slug}/og.jpg`, alt: g[lang].alt },
+    bodyClass: "page-game page-play",
+    scripts: `
+<script src="${ctx.asset("/js/play.js")}"></script>`,
     body,
   });
 }

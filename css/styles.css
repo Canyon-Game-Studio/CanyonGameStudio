@@ -444,7 +444,7 @@ main:focus{ outline:none; }
 .btn{
   display:inline-flex; align-items:center; gap:10px; padding:14px 22px;
   font-family:'JetBrains Mono'; font-size:12px; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
-  text-decoration:none; border:2px solid transparent;
+  text-decoration:none; border:2px solid transparent; background:transparent; cursor:pointer;
   transition: transform .15s, background .15s, color .15s, border-color .15s;
 }
 .btn svg{ width:18px; height:18px; flex:none; }
@@ -606,4 +606,35 @@ main:focus{ outline:none; }
   .legal-hero{ padding-bottom:40px; }
   .legal p, .legal li{ font-size:17px; }
   .legal h2{ font-size:20px; margin-top:40px; }
+}
+
+/* ============ PLAY IN BROWSER ============ */
+.play-wrap{ position:relative; z-index:2; max-width:1200px; margin:0 auto; }
+.play-hero .g-tagline{ max-width:720px; }
+.g-play{
+  position:relative; aspect-ratio:16/9; background:#000;
+  border:2px solid var(--orange); box-shadow: 14px 14px 0 var(--espresso);
+}
+.g-play iframe{ display:block; width:100%; height:100%; border:0; }
+.g-play:fullscreen{ border:0; box-shadow:none; }
+.g-play-cover, .g-play-cover picture, .g-play-cover img{ display:block; width:100%; height:100%; }
+.g-play-cover img{ object-fit:cover; opacity:.45; }
+.g-play-cta{
+  position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:16px; padding:24px; text-align:center;
+}
+.g-play-cta .btn{ font-size:20px; }
+.g-play-note{ font-family:'JetBrains Mono'; font-size:12px; letter-spacing:.06em; color: var(--bone); max-width:460px; }
+.g-play-note a{ color: var(--orange); overflow-wrap:anywhere; }
+.g-play-bar{ display:flex; flex-wrap:wrap; gap:12px; margin-top:36px; }
+.g-play [hidden], .g-play-bar [hidden]{ display:none; }
+.play-sub{ margin-top:64px; }
+.play-tips{ padding-left:22px; max-width:760px; }
+.play-tips li{ font-size:18px; line-height:1.6; opacity:.85; }
+.play-tips li + li{ margin-top:8px; }
+.play-tips li::marker{ color: var(--orange); }
+
+@media (max-width: 900px){
+  .g-play{ box-shadow:none; }
+  .g-play-cta .btn{ font-size:16px; }
 }

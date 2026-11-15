@@ -90,6 +90,23 @@ export const T = {
     follow_body: "We share progress, art and behind-the-scenes on Instagram and on our Steam page.",
     follow_steam: "Follow on Steam", follow_insta: "Instagram",
     privacy_cta: "Privacy Policy",
+    web_cta: "Play in Browser",
+    play_crumb: "Play in Browser",
+    play_title: "Play Trash Party in Your Browser | Free Online Co-op",
+    play_desc: "Play Trash Party free in your browser. Online co-op for up to 4 players, and you can join friends playing the demo on Steam. Best on a PC with a controller.",
+    play_h1: "Play in<br/>Browser",
+    play_lead: "The Trash Party demo, right here in your browser. Free, no install. Rooms are cross-platform: share your room code and friends on Steam can join you.",
+    play_start: "Start the Game",
+    play_size: "First load downloads about {size}. After that it opens from cache.",
+    play_full: "Fullscreen",
+    play_newtab: "Open in a new tab",
+    play_tips_h: "Before you play",
+    play_tips: [
+      "Use a computer with Chrome, Edge or Firefox. Phones and tablets are not supported.",
+      "Controllers work: plug one in and press a button once the game is open.",
+      "Liked it? Wishlist Trash Party on Steam to hear when the full game comes out.",
+    ],
+    play_nojs: "The game needs JavaScript. You can also open it directly:",
 
     nf_title: "Page not found | Canyon Game Studio",
     nf_heading: "LOST IN THE<br/>CANYONS.",
@@ -154,6 +171,23 @@ export const T = {
     follow_body: "Mostramos progresso, arte e bastidores no Instagram e na nossa página da Steam.",
     follow_steam: "Seguir na Steam", follow_insta: "Instagram",
     privacy_cta: "Política de Privacidade",
+    web_cta: "Jogue no Navegador",
+    play_crumb: "Jogar no Navegador",
+    play_title: "Jogue Trash Party no Navegador | Co-op Online Grátis",
+    play_desc: "Jogue Trash Party grátis no navegador. Co-op online para até 4 jogadores, e dá para entrar na sala de amigos que jogam a demo na Steam. Melhor no PC com controle.",
+    play_h1: "Jogue no<br/>Navegador",
+    play_lead: "A demo do Trash Party aqui no seu navegador. Grátis e sem instalar. As salas são multiplataforma: passe o código da sua sala e os amigos na Steam entram com você.",
+    play_start: "Começar o Jogo",
+    play_size: "Na primeira vez o jogo baixa cerca de {size}. Depois ele abre do cache.",
+    play_full: "Tela Cheia",
+    play_newtab: "Abrir em outra aba",
+    play_tips_h: "Antes de jogar",
+    play_tips: [
+      "Use um computador com Chrome, Edge ou Firefox. Celulares e tablets não são suportados.",
+      "Controle funciona: conecte e aperte um botão com o jogo aberto.",
+      "Gostou? Coloque Trash Party na lista de desejos da Steam para saber quando o jogo completo sair.",
+    ],
+    play_nojs: "O jogo precisa de JavaScript. Você também pode abrir direto:",
 
     nf_title: "Página não encontrada | Canyon Game Studio",
     nf_heading: "PERDIDO NOS<br/>CANYONS.",
@@ -176,6 +210,11 @@ export const GAMES = [
     ldGenre: ["Party", "Co-op", "Arcade"],
     keyArt: { w: 1920, h: 1080 },
     shots: 8,
+    // Browser (WebGL) build, same network version as the Steam demo so both
+    // play in the same rooms. Hosted outside Vercel (files too big): url is the
+    // build's index.html, size is what the first load downloads. Empty url =
+    // no Play in Browser page or button.
+    web: { url: "https://itch.io/embed-upload/20562792?color=1A0F0C", size: "110 MB" },
     trailer: { src: "/media/trash-party-trailer.mp4", poster: "/images/games/trash-party/trailer-poster.webp" },
     en: {
       title: "Trash Party | Online Co-op Party Game on Steam",
