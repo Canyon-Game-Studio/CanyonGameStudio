@@ -223,6 +223,16 @@ body::after{
 .game-card-featured .game-body{ padding:24px 28px 32px; }
 .game-card-featured .game-info h3{ font-size:30px; }
 .game-card-featured .game-desc{ font-size:17px; }
+/* a card left alone on the last row fills the row, cover on the left and text
+   on the right, instead of leaving an empty cell. On the home page the
+   featured card takes row 1, so a lone card there sits at an even position;
+   under "More games" (.g-more) there is no featured card, so it's odd. */
+@media (min-width: 901px){
+  .game-card-featured ~ .game-card:last-child:nth-child(even),
+  .g-more .game-card:last-child:nth-child(odd){ grid-column: 1 / -1; flex-direction:row; }
+  .game-card-featured ~ .game-card:last-child:nth-child(even) > .game-cover,
+  .g-more .game-card:last-child:nth-child(odd) > .game-cover{ flex:0 0 50%; }
+}
 
 /* Steam buttons stacked over the featured cover (outside the cover link,
    since links can't nest); same width so they read as a pair */

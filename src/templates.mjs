@@ -13,6 +13,8 @@ export const homePath = (lang) => `${LANGS[lang].prefix}/`;
 export const gamePath = (lang, slug) => `${LANGS[lang].prefix}/${slug}/`;
 export const playPath = (lang, slug) => `${LANGS[lang].prefix}/${slug}/play/`;
 const other = (lang) => (lang === "en" ? "pt" : "en");
+// Games listed on the home page, in the footer and under "More games" (see `home: false` in content.mjs).
+const ON_HOME = GAMES.filter((g) => g.home !== false);
 
 // External link that says it opens a new tab (for screen readers only).
 const ext = (t, href, inner, attrs = "") =>
@@ -159,7 +161,7 @@ function footer(ctx, lang, isHome) {
       </div>
       <div class="footer-col">
         <h2 class="footer-h">${t.foot_games}</h2>
-        ${GAMES.map((g) => `<a href="${gamePath(lang, g.slug)}">${g.name}</a>`).join("\n        ")}
+        ${ON_HOME.map((g) => `<a href="${gamePath(lang, g.slug)}">${g.name}</a>`).join("\n        ")}
       </div>
       <div class="footer-col">
         <h2 class="footer-h">${t.foot_connect}</h2>
@@ -245,7 +247,7 @@ function keyArtPicture(ctx, g, lang, { sizes, eager = false, cls = "" }) {
 // ---------- home ----------
 export function home(ctx, lang) {
   const t = T[lang];
-  const [tp, tc, tb, ...rest] = GAMES;
+  const [tp, ...rest] = ON_HOME;   // first one is the featured card (Trash Party)
   const camp = "home";
   const learn = (g) => `<a class="game-more" href="${gamePath(lang, g.slug)}">${t.learn_more}<span class="sr-only">${t.learn_more_about}${g.name}</span> <span aria-hidden="true">→</span></a>`;
 
@@ -263,6 +265,21 @@ export function home(ctx, lang) {
           ${learn(g)}
         </div>
       </div>`;
+
+  // Trash Corp. and TrashBlood keep their original art in /images; newer games use images/games/<slug>/.
+  const OWN_ART = {
+    "trash-corp": (g) => `<picture>
+            <source type="image/webp" srcset="${ctx.asset("/images/TrashCorp.webp")}">
+            <img class="game-art" src="${ctx.asset("/images/TrashCorp.jpg")}" width="1024" height="560" loading="lazy" decoding="async" alt="${esc(g[lang].alt)}">
+          </picture>`,
+    trashblood: (g) => `<picture>
+            <source type="image/webp" srcset="${ctx.asset("/images/TrashBlood-960.webp")} 960w, ${ctx.asset("/images/TrashBlood.webp")} 1920w" sizes="(max-width: 900px) 100vw, 700px">
+            <img class="game-art" src="${ctx.asset("/images/TrashBlood.jpg")}" width="1920" height="1080" loading="lazy" decoding="async" alt="${esc(g[lang].alt)}">
+          </picture>`,
+  };
+  const cardArt = (g) => (OWN_ART[g.slug]
+    ? OWN_ART[g.slug](g)
+    : keyArtPicture(ctx, g, lang, { sizes: "(max-width: 900px) 100vw, 700px", cls: "game-art" }));
 
   const body = `<!-- ============ HERO / WHO WE ARE ============ -->
 <header class="hero" id="top">
@@ -309,7 +326,7 @@ export function home(ctx, lang) {
     <h2 class="reveal-title" id="manifesto-h">${t.manifesto_title}</h2>
     <p>${t.manifesto_body}</p>
   </div>
-  ${marquee(["CANYON GAME STUDIO", ...GAMES.map((g) => g.name.toUpperCase())])}
+  ${marquee(["CANYON GAME STUDIO", ...ON_HOME.map((g) => g.name.toUpperCase())])}
 </section>
 
 <!-- ============ GAMES ============ -->
@@ -350,20 +367,7 @@ export function home(ctx, lang) {
         </div>
       </div>
 
-      <!-- TRASH CORP. -->
-      ${wipCard(tc, `<picture>
-            <source type="image/webp" srcset="${ctx.asset("/images/TrashCorp.webp")}">
-            <img class="game-art" src="${ctx.asset("/images/TrashCorp.jpg")}" width="1024" height="560" loading="lazy" decoding="async" alt="${esc(tc[lang].alt)}">
-          </picture>`)}
-
-      <!-- TRASHBLOOD -->
-      ${wipCard(tb, `<picture>
-            <source type="image/webp" srcset="${ctx.asset("/images/TrashBlood-960.webp")} 960w, ${ctx.asset("/images/TrashBlood.webp")} 1920w" sizes="(max-width: 900px) 100vw, 700px">
-            <img class="game-art" src="${ctx.asset("/images/TrashBlood.jpg")}" width="1920" height="1080" loading="lazy" decoding="async" alt="${esc(tb[lang].alt)}">
-          </picture>`)}
-
-      <!-- NEWER GAMES: one card each, from images/games/<slug>/ -->
-      ${rest.map((g) => wipCard(g, keyArtPicture(ctx, g, lang, { sizes: "(max-width: 900px) 100vw, 700px", cls: "game-art" }))).join("\n\n      ")}
+      ${rest.map((g) => `<!-- ${g.name.toUpperCase()} -->\n      ${wipCard(g, cardArt(g))}`).join("\n\n      ")}
 
     </div>
   </div>
@@ -400,7 +404,7 @@ export function home(ctx, lang) {
         studioLd(),
         { "@type": "WebSite", "@id": `${SITE.url}/#website`, url: `${SITE.url}/`, name: SITE.name,
           inLanguage: ["en", "pt-BR"], publisher: { "@id": STUDIO_ID } },
-        ...GAMES.map((g) => gameLd(g, lang)),
+        ...ON_HOME.map((g) => gameLd(g, lang)),
       ],
     },
     body,
@@ -412,7 +416,7 @@ export function game(ctx, lang, g) {
   const t = T[lang], c = g[lang];
   const camp = `game-${g.slug}`;
   const home = homePath(lang);
-  const others = GAMES.filter((x) => x.slug !== g.slug);
+  const others = ON_HOME.filter((x) => x.slug !== g.slug);
 
   const ctas = g.status === "demo"
     ? `${steamBtn(t, utm(SITE.steamStore, camp, "hero-wishlist"), t.wishlist_cta, "btn btn-primary")}

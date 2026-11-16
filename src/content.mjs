@@ -38,9 +38,9 @@ export const T = {
     langLabel: "Language",
     nav_about: "Who We Are", nav_games: "Games", nav_contact: "Contact",
 
-    home_title: "Canyon Game Studio | Trash Party, Trash Corp. & TrashBlood",
-    home_desc_demo: "Indie co-op studio from Brazil. Play the Trash Party demo on Steam, an online co-op party game for up to 4 players. Also making Trash Corp. and TrashBlood.",
-    home_desc: "Indie co-op studio from Brazil. Wishlist Trash Party on Steam, an online co-op party game for up to 4 players. Also making Trash Corp. and TrashBlood.",
+    home_title: "Canyon Game Studio | Trash Party & Trash Nights",
+    home_desc_demo: "Indie co-op studio from Brazil. Play the Trash Party demo on Steam, an online co-op party game for up to 4 players. Also making Trash Nights.",
+    home_desc: "Indie co-op studio from Brazil. Wishlist Trash Party on Steam, an online co-op party game for up to 4 players. Also making Trash Nights.",
     home_og_title_demo: "Canyon Game Studio | Trash Party Demo out now on Steam",
     home_og_title: "Canyon Game Studio | Wishlist Trash Party on Steam",
     og_alt: "Trash Party key art: garbage collectors and their truck on a city street",
@@ -60,7 +60,7 @@ export const T = {
     manifesto_title: "GAMES ARE<br/>BETTER<br/>WITH FRIENDS.",
     manifesto_body: "Born in the canyons of southern Brazil, where two friends turned game nights into a career. We believe in cooperative games, the ones you finish screaming on Discord at 3 AM, with someone saying \"one more round.\"",
     games_title: "OUR GAMES",
-    games_side: "Five titles in the works, with more worlds on the horizon.",
+    games_side: "Two titles in the works, with more worlds on the horizon.",
     tag_players: "1–4 Players",
     wip_badge: "Work in Progress",
     demo_cta: "Play the Demo",
@@ -120,8 +120,8 @@ export const T = {
     langLabel: "Idioma",
     nav_about: "Quem Somos", nav_games: "Jogos", nav_contact: "Contato",
 
-    home_title: "Canyon Game Studio | Trash Party, Trash Corp. e TrashBlood",
-    home_desc_demo: "Estúdio indie co-op do Brasil. Jogue a demo de Trash Party na Steam, party game cooperativo online para até 4 jogadores. E também Trash Corp. e TrashBlood.",
+    home_title: "Canyon Game Studio | Trash Party e Trash Nights",
+    home_desc_demo: "Estúdio indie co-op do Brasil. Jogue a demo de Trash Party na Steam, party game cooperativo online para até 4 jogadores. E também Trash Nights.",
     home_desc: "Estúdio indie co-op do Brasil. Adicione Trash Party à lista de desejos na Steam, um party game cooperativo online para até 4 jogadores.",
     home_og_title_demo: "Canyon Game Studio | Demo de Trash Party disponível na Steam",
     home_og_title: "Canyon Game Studio | Trash Party na Steam",
@@ -142,7 +142,7 @@ export const T = {
     manifesto_title: "JOGOS SÃO<br/>MELHORES<br/>COM AMIGOS.",
     manifesto_body: "Nascemos nos canyons do sul do Brasil, onde dois amigos transformaram noites de jogos em carreira. Acreditamos em games cooperativos, os que você termina gritando no Discord às 3 da manhã, com alguém dizendo \"só mais uma partida\".",
     games_title: "NOSSOS JOGOS",
-    games_side: "Cinco títulos a caminho, com mais mundos no horizonte.",
+    games_side: "Dois títulos a caminho, com mais mundos no horizonte.",
     tag_players: "1–4 Jogadores",
     wip_badge: "Em Desenvolvimento",
     demo_cta: "Jogue a Demo",
@@ -198,6 +198,8 @@ export const T = {
 
 // ---------------------------------------------------------------------------
 // Games. `card` = home page card, everything else = the game's own page.
+// `home: false` keeps a game off the home page (cards, marquee, structured
+// data), the footer and the "More games" lists; its own page still builds.
 // ---------------------------------------------------------------------------
 export const GAMES = [
   {
@@ -302,6 +304,7 @@ export const GAMES = [
     slug: "trash-corp",
     name: "Trash Corp.",
     status: "wip",
+    home: false,                 // off the home page for now
     players: { min: 1, max: 4 },
     playMode: ["SinglePlayer", "CoOp", "MultiPlayer"],
     ldGenre: ["Horror", "Co-op", "Extraction"],
@@ -367,6 +370,7 @@ export const GAMES = [
   {
     slug: "trashblood",
     name: "TrashBlood",
+    home: false,                 // off the home page for now
     status: "wip",
     playMode: ["SinglePlayer"],
     ldGenre: ["Brawler", "Roguelite", "Action"],
@@ -521,6 +525,7 @@ export const GAMES = [
     slug: "trashcaves",
     name: "TrashCaves",
     status: "wip",
+    home: false,                 // off the home page for now
     players: { min: 1, max: 4 },
     playMode: ["SinglePlayer", "CoOp", "MultiPlayer"],
     ldGenre: ["Co-op", "Mining", "Crafting"],
