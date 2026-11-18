@@ -216,7 +216,7 @@ export const GAMES = [
     // play in the same rooms. Hosted outside Vercel (files too big): url is the
     // build's index.html, size is what the first load downloads. Empty url =
     // no Play in Browser page or button.
-    web: { url: "https://itch.io/embed-upload/20562792?color=1A0F0C", size: "110 MB" },
+    web: { url: "https://itch.io/embed-upload/20648017?color=1A0F0C", size: "110 MB" },
     trailer: { src: "/media/trash-party-trailer.mp4", poster: "/images/games/trash-party/trailer-poster.webp" },
     en: {
       title: "Trash Party | Online Co-op Party Game on Steam",
